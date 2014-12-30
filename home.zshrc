@@ -1,12 +1,11 @@
-if [ -f ~/bin/.zshrc ]; then
-      source ~/bin/.zshrc
+if [ -f $HOME/.dotfiles/zshrc ]; then
+  source $HOME/.dotfiles/zshrc
 fi
-if [ -f ~/zsh-scripts/.zshrc ]; then
-      source ~/zsh-scripts/.zshrc
+if [ -f $HOME/.nvm/nvm.sh ]; then
+  source $HOME/.nvm/nvm.sh
+  nvm use 0.10
 fi
-if [ -f ~/.nvm/nvm.sh ]; then
-      nvm use 0.11
+if [ -f $HOME/.rvm/scripts/rvm ]; then
+  source $HOME/.rvm/scripts/rvm
 fi
-if [ -f ~/.rvm/scripts/rvm ]; then
-			source /home/therebelrobot/.rvm/scripts/rvm
-fi
+

@@ -1,8 +1,12 @@
 [user]
   name = Trent Oswald
   email = trentoswald@therebelrobot.com
+[github]
+  user = therebelrobot
+[push]
+  default = simple
 [core]
-  editor = subl -w
+  editor = vim
 [web]
   browser = google-chrome
 [alias]
@@ -111,5 +115,3 @@
   added = green bold
   changed = yellow bold
   untracked = red bold
-[github]
-  user = therebelrobot
