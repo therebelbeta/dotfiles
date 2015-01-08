@@ -60,6 +60,11 @@ sudo apt-get update
 sudo apt-get install nginx
 success "Installed Nginx"
 
+info "Installing Ack"
+sudo apt-get install ack-grep
+sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
+info "Installed Ack"
+
 info "Setting up SSH"
 mkdir $HOME/.ssh
 touch $HOME/config
