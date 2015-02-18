@@ -17,7 +17,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'pangloss/vim-javascript'
 Plugin 'ervandew/supertab'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'Shougo/neocomplete.vim'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'Raimondi/delimitMate'
 Plugin 'marijnh/tern_for_vim'
@@ -35,6 +35,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-commentary'
 Plugin 'groenewege/vim-less'
 Plugin 'mhinz/vim-startify'
+Plugin 'ryanss/vim-hackernews'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'einars/js-beautify'
 Bundle 'mattn/emmet-vim'
@@ -188,6 +189,9 @@ noremap <Leader>x :bd<CR>
 " Replace current word with what is in the clipboard
 nnoremap S "_diwP
 
+" Toggle comment line with <leader> c
+map <Leader>c gcc
+
 " Move lines around with Alt j and k in any mode
 nnoremap ∆ :m .+1<CR>==
 nnoremap ˚ :m .-2<CR>==
@@ -287,11 +291,6 @@ vmap <C-v> <Plug>(expand_region_shrink)
 
 " Javascript library syntax highlighting settings
 let g:used_javascript_libs = 'underscore,jquery,angularjs,chai'
-
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-j>'
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
