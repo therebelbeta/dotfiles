@@ -1,78 +1,96 @@
 #! /usr/bin/env bash
 
-set -e
-
-echo ''
-
-info () {
-  printf "  [ \033[00;34m..\033[0m ] $1"
-}
-
-user () {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
-}
-
-success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
 cd $HOME;
-info "basic Deps"
-sudo apt-get install curl zsh vim git build-essential libssl-dev -y
-success "basic deps installed"
+echo "basic Deps"
+echo "install xcode command line"
+xcode-select --install
+echo "command line tools installed"
 
-info "install dotfiles repo"
-git clone https://github.com/therebelrobot/dotfiles $HOME/.dotfiles
-DOTFILES_ROOT=$HOME/.dotfiles
-success "dotfiles cloned"
+echo "install Brew"
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew doctor
+brew update
+brew upgrade
+echo "Brew installed"
 
-info "install ohmyzsh and change default shell to zsh"
+brew install curl zsh vim --with-lua gcc
+echo "basic deps installed"
+
+echo "install dotfiles repo"
+git clone git@github.com:therebelrobot/dotfiles.git $HOME/.dotfiles
+echo "dotfiles cloned"
+
+echo "install ohmyzsh and change default shell to zsh"
 curl -L http://install.ohmyz.sh | sh
 sudo sed -i "s/auth       required   pam_shells.so/# auth       required   pam_shells.so/g" /etc/pam.d/chsh
 chsh -s $(which zsh);
-success "ohmyzsh installed"
+echo "ohmyzsh installed"
 
-info "link .zshrc"
+echo "link .zshrc"
 mv $HOME/.zshrc $HOME/.zshrc.ohmyzsh
-ln -s $DOTFILES_ROOT/home.zshrc $HOME/.zshrc
-success ".zshrc now linked"
+ln -s $HOME/.dotfiles/home.zshrc $HOME/.zshrc
+echo ".zshrc installed"
 
-info "link .gitconfig"
-ln -s $DOTFILES_ROOT/.gitconfig $HOME/.gitconfig
-success "gitconfig installed"
+echo "link .gitconfig"
+ln -s $HOME/.dotfiles/.gitconfig $HOME/.gitconfig
+echo ".gitconfig installed"
 
-info "link Vundle and .vimrc"
+echo "link .gitignore"
+ln -s $HOME/.dotfiles/.gitignore $HOME/.gitignore
+echo ".gitignore installed"
+
+echo "link .editorconfig"
+ln -s $HOME/.dotfiles/.editorconfig $HOME/.editorconfig
+echo ".editorconfig installed"
+
+echo "link Vundle and .vimrc"
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-ln -s $DOTFILES_ROOT/.vimrc $HOME/.vimrc
-success "Vundle and .vimrc Installed"
+ln -s $HOME/.dotfiles/.vimrc $HOME/.vimrc
+echo "Vundle and .vimrc Installed"
 
-info "Installing Node and Node Modules"
+echo "Installing Node and Node Modules"
 curl https://raw.githubusercontent.com/creationix/nvm/v0.22.0/install.sh | bash
 source $HOME/.nvm/nvm.sh
-nvm install 0.10
-nvm use 0.10 --defualt
-npm install -g gulp grunt-cli slush nodemon bower vtop browserify watchify
-success "Installed Node and Node Modules"
+nvm install iojs
+nvm use iojs --defualt
+npm install -g gulp grunt-cli slush nodemon bower vtop browserify watchify mocha istanbul httpsnippet
+echo "Installed Node and Node Modules"
 
-info "Installing Nginx"
-sudo add-apt-repository ppa:nginx/stable
-sudo apt-get update
-sudo apt-get install nginx
-success "Installed Nginx"
+echo "Installing Nginx"
+brew install nginx
+sudo cp /usr/local/opt/nginx/*.plist /Library/LaunchDaemons/
+sudo chown root:wheel /Library/LaunchDaemons/homebrew.mxcl.nginx.plist
+mkdir -p /usr/local/etc/nginx/logs
+mkdir -p /usr/local/etc/nginx/sites-available
+mkdir -p /usr/local/etc/nginx/sites-enabled
+mkdir -p /usr/local/etc/nginx/conf.d
+mkdir -p /usr/local/etc/nginx/ssl
+sudo mkdir -p /var/www
+sudo chown :staff /var/www
+sudo chmod 775 /var/www
+rm /usr/local/etc/nginx/nginx.conf
+ln -s $HOME/.dotfiles/nginx.conf /usr/local/etc/nginx/nginx.conf
+sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.nginx.plist
+echo "Installed Nginx"
 
-info "Installing Ack"
-sudo apt-get install ack-grep
-sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
-info "Installed Ack"
+echo "Installing MySQL"
+brew install mysql
+ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
+launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+mysql_secure_installation
+echo "Installed MySQL"
 
-info "Setting up SSH"
+echo "Installing Ack"
+brew install ack
+echo "Installed Ack"
+
+echo "Setting up SSH"
 mkdir $HOME/.ssh
 touch $HOME/config
 echo "Building SSH key. What is the name of your system?"
 read COMPNAME
 ssh-keygen -t rsa -C "$COMPNAME"
-info "SSH PUBLIC KEY: "
+echo "SSH PUBLIC KEY: "
 cat $HOME/id_rsa.pub
 
-success "Thank you for installing Dotfiles. Have a great day!"
-
+echo "Thank you for installing Dotfiles. Have a great day!"
