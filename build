@@ -53,7 +53,8 @@ curl https://raw.githubusercontent.com/creationix/nvm/v0.22.0/install.sh | bash
 source $HOME/.nvm/nvm.sh
 nvm install iojs
 nvm use iojs --defualt
-npm install -g gulp grunt-cli slush nodemon bower vtop browserify watchify mocha istanbul httpsnippet
+npm install -g gulp grunt-cli slush nodemon bower vtop browserify watchify mocha istanbul httpsnippet keybase-installer
+keybase-installer
 echo "Installed Node and Node Modules"
 
 echo "Installing Nginx"
@@ -83,6 +84,11 @@ echo "Installed MySQL"
 echo "Installing Ack"
 brew install ack
 echo "Installed Ack"
+
+echo "building folders for projects"
+mkdir git git/personal git/opensource git/work git/other
+mkdir ISOs ISOs/OS ISOs/OS/Linux ISOs/OS/Windows ISOs/OS/Mac
+mkdir fonts
 
 echo "Setting up SSH"
 mkdir $HOME/.ssh
