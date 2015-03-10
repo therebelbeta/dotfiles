@@ -80,12 +80,12 @@ alias relaod='reload'
 # Navigation
 alias home='cd ~/'
 alias root='cd /'
-alias jump='pushd ~/bin'
+alias jump='pushd ~/.dotfiles'
 alias cd..='cd ..'
 
 # Files and File System
-alias ls='ls --color=auto'
-alias ll='ls -l'
+alias ls='ls -aG'
+alias ll='ls -al'
 alias findSymLinks='find ./ -type l'
 
 function restart() {
@@ -127,10 +127,10 @@ installinvoice() { sudo apt-get install -y texlive; npm install -g invoicer; npm
 preparesshfs() { CURRENTUSER=$(whoami); sudo apt-get install sshfs; sudo modprobe fuse; sudo adduser $CURRENTUSER fuse; sudo chown root:fuse /dev/fuse; sudo chmod +x /dev/fuse; echo "SSHfs installed."; echo "You will need to logout for these changes to take effect."; }
 configzsh() {
 	echo "copying custom zsh files..."
-	if [ -f ~/bin/oh-my-zsh.sh ]; then
-    cp ~/bin/oh-my-zsh.sh ~/.oh-my-zsh/oh-my-zsh.sh
-    cp ~/bin/norm.zsh-theme ~/.oh-my-zsh/themes/norm.zsh-theme
-    cp ~/bin/duellj.zsh-theme ~/.oh-my-zsh/themes/duellj.zsh-theme
+	if [ -f ~/.dotfiles/oh-my-zsh.sh ]; then
+    cp ~/.dotfiles/oh-my-zsh.sh ~/.oh-my-zsh/oh-my-zsh.sh
+    cp ~/.dotfiles/norm.zsh-theme ~/.oh-my-zsh/themes/norm.zsh-theme
+    cp ~/.dotfiles/duellj.zsh-theme ~/.oh-my-zsh/themes/duellj.zsh-theme
   elif [ -f ~/zsh-scripts/oh-my-zsh.sh ]; then
     cp ~/zsh-scripts/oh-my-zsh.sh ~/.oh-my-zsh/oh-my-zsh.sh
     cp ~/zsh-scripts/norm.zsh-theme ~/.oh-my-zsh/themes/norm.zsh-theme
@@ -174,7 +174,7 @@ if [ -f ~/.zsh_ssh ]; then
       source ~/.zsh_ssh
 fi
 
-export PATH=$HOME/.exercism:$HOME/Apps:$HOME/bin/scripts:$PATH
+export PATH=$HOME/.exercism:$HOME/Apps:$HOME/.dotfiles/scripts:$PATH
 if [ -d "$HOME/Apps" ] ; then
   export PATH="$HOME/Apps:$PATH"
 fi
@@ -202,3 +202,5 @@ deleteinallfolders() {
   done
 }
 alias goga="cd $HOME/git/grow/grow-app"
+alias goio="cd $HOME/git/opensource/iojs-website"
+# eval "$(hub alias -s)"
