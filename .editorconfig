@@ -3,13 +3,15 @@
 root = true
 
 [**.js]
+bin=node
+space_after_anon_function = true
 indent_style = space
 indent_size = 2
 indent_level = 0
 indent_with_tabs = false
 preserve_newlines = true
 max_preserve_newlines = 10
-jslint_happy = false
+; jslint_happy = false
 brace_style = end-expand
 keep_array_indentation = false
 keep_function_indentation = false
