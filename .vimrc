@@ -23,7 +23,7 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'bling/vim-airline'
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'airblade/vim-gitgutter'
+" Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
 Plugin 'digitaltoad/vim-jade'
@@ -36,6 +36,9 @@ Plugin 'tpope/vim-commentary'
 Plugin 'groenewege/vim-less'
 Plugin 'mhinz/vim-startify'
 Plugin 'ryanss/vim-hackernews'
+Plugin 'mxw/vim-jsx'
+Plugin 'othree/html5.vim'
+Plugin 'wavded/vim-stylus'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'einars/js-beautify'
 Bundle 'mattn/emmet-vim'
@@ -320,3 +323,4 @@ endfunction
   autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
     " for css or scss
   autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+

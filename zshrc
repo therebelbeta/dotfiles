@@ -174,7 +174,7 @@ if [ -f ~/.zsh_ssh ]; then
       source ~/.zsh_ssh
 fi
 
-export PATH=$HOME/.exercism:$HOME/Apps:$HOME/.dotfiles/scripts:$PATH
+export PATH=$HOME/.exercism:$HOME/Apps:$HOME/.dotfiles/bin:$PATH
 if [ -d "$HOME/Apps" ] ; then
   export PATH="$HOME/Apps:$PATH"
 fi
@@ -203,4 +203,8 @@ deleteinallfolders() {
 }
 alias goga="cd $HOME/git/grow/grow-app"
 alias goio="cd $HOME/git/opensource/iojs-website"
+alias goaa="cd $HOME/git/mashape/analytics-app"
+alias goap="cd $HOME/git/mashape/analytics-api"
+alias goas="cd $HOME/git/mashape/analytics-server"
+alias goma="cd $HOME/git/mashape/mashape-auth"
 # eval "$(hub alias -s)"
