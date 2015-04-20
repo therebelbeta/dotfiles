@@ -116,8 +116,8 @@ alias killapache='sudo /etc/init.d/apache2 stop && sudo /etc/init.d/nginx start 
 alias battery='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 installruby()  { \curl -sSL https://get.rvm.io | bash -s stable --ruby; reload; rvm --default use 2.1.2; }
 installgems() { gem install sass compass bundler; }
-installnodejs()  { sudo apt-get install git curl build-essential libssl-dev; curl https://raw.githubusercontent.com/creationix/nvm/v0.13.0/install.sh | bash; reload; nvm install 0.10; nvm use 0.10 --default; }
-installnodemods() { npm install gulp -g; npm install grunt-cli -g; npm install bower -g; npm install yeoman -g; npm install nodemon -g; npm install slush -g; npm install slap -g; }
+installnodejs()  { sudo apt-get install git curl build-essential libssl-dev; curl https://raw.githubusercontent.com/creationix/nvm/v0.24.1/install.sh | bash; reload; nvm install 0.10; nvm use 0.10 --default; }
+installnodemods() { npm install -g airpaste ampersand bower browserify codeclimate-test-reporter forever gitbye goingnative grunt-cli gulp http-server httpsnippet istanbul js-beautify jshint mocha nodemon otf2ttf peerflix-server semistandard slush standard stream-adventure thinking-in-react vtop }
 installsublime() { sudo add-apt-repository ppa:webupd8team/sublime-text-3;	sudo apt-get update; sudo apt-get install sublime-text-installer; }
 installlamp() { sudo apt-get install tasksel; sudo tasksel install lamp-server; }
 installnginx() { sudo add-apt-repository ppa:nginx/stable; sudo apt-get update; sudo apt-get install nginx; }
@@ -208,3 +208,26 @@ alias goap="cd $HOME/git/mashape/analytics-api"
 alias goas="cd $HOME/git/mashape/analytics-server"
 alias goma="cd $HOME/git/mashape/mashape-auth"
 # eval "$(hub alias -s)"
+
+source /usr/local/opt/autoenv/activate.sh
+
+runwild() {
+  echo $1 $2 "$3"
+  find $2 -name \'"$3"\'
+  filespecs=$( find "$2" -name "$3" )
+  echo $filespecs
+  cd "$2"
+  for file in $filespecs
+  do
+    echo "$1 $file"
+    "$1" "$file"
+  done
+}
+
+# Make home and end actually work in Terminal
+bindkey "\e[1~" beginning-of-line
+bindkey "\e[4~" end-of-line"]]"
+
+alias fuck='$(thefuck $(fc -ln -1))'
+# You can use whatever you want as an alias, like for mondays:
+alias FUCK='fuck'
