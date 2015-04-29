@@ -19,6 +19,7 @@ echo "Basic Deps" &&
 sudo apt-get update -y &&
 # sudo apt-get remove vim vim-runtime vim-tiny vim-common -y &&
 sudo apt-get install curl zsh git build-essential libssl-dev libncurses5-dev python-dev libperl-dev ruby-dev liblua5.2-dev make checkinstall mercurial python-pip ack-grep -y &&
+sudo sed -i "s/auth       required   pam_shells.so/# auth       required   pam_shells.so/g" /etc/pam.d/chsh
 echo "Basic deps installed" &&
 
 echo "Install dotfiles repo" &&
@@ -26,7 +27,7 @@ git clone https://github.com/therebelrobot/dotfiles $HOME/.dotfiles &&
 echo "dotfiles cloned" &&
 
 echo "Installing Node (io.js latest)" &&
-curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash;
+echo $(curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash) &&
 . $HOME/.nvm/nvm.sh &&
 nvm install iojs &&
 nvm use iojs --defualt &&
