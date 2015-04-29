@@ -112,6 +112,7 @@ function _afterOhMyZSH(code) {
   });
   fixPamShell.stderr.on('data', function _fixPamShellError(data) {
     console.log('fixPamShell stderr: ' + data);
+    _afterPamShellFix(0)
   });
   fixPamShell.on('close', _afterPamShellFix);
 }
