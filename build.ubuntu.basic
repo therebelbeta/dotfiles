@@ -21,7 +21,7 @@ sudo apt-get install curl zsh git build-essential libssl-dev -y
 echo "Basic deps installed"
 
 echo "Setting up SSH"
-[[ ! -d $HOME/.ssh ]] && mkdir $HOME/.ssh
+if [ ! -d $HOME/.ssh ]; then mkdir $HOME/.ssh; fi
 touch $HOME/config
 echo "Building SSH key. What is the name of your system?"
 read COMPNAME
