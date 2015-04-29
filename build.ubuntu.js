@@ -76,7 +76,7 @@ function _afterKeyGen(err, out) {
 }
 
 function _afterConfirmPrompt() {
-  var curlomzsh = spawn('curl', ['-L', 'http://install.ohmyz.sh']),
+  var curlomzsh = spawn('curl', ['-L', 'http://install.ohmyz.sh'])
   var runomzsh = spawn('sh')
   curlomzsh.stdout.on('data', function _curlMyZSHData(data) {
     runomzsh.stdin.write(data);
