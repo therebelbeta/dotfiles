@@ -24,7 +24,7 @@ echo "Setting up SSH" &&
 if [ ! -d $HOME/.ssh ]; then mkdir $HOME/.ssh; fi &&
 touch $HOME/config &&
 echo "Building SSH key. What is the name of your system?" &&
-read COMPNAME;
+read COMPNAME &&
 ssh-keygen -t rsa -C "$COMPNAME" &&
 echo "SSH PUBLIC KEY: " &&
 cat $HOME/id_rsa.pub &&
