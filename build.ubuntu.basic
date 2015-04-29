@@ -17,8 +17,8 @@ echo "" &&
 cd $HOME &&
 echo "Basic Deps" &&
 sudo apt-get update -y &&
-sudo apt-get remove vim vim-runtime vim-tiny vim-common -y &&
-sudo apt-get install ssh-keygen curl zsh git build-essential libssl-dev libncurses5-dev python-dev libperl-dev ruby-dev liblua5.2-dev make checkinstall mercurial python-pip ack-grep -y &&
+# sudo apt-get remove vim vim-runtime vim-tiny vim-common -y &&
+sudo apt-get install curl zsh git build-essential libssl-dev libncurses5-dev python-dev libperl-dev ruby-dev liblua5.2-dev make checkinstall mercurial python-pip ack-grep -y &&
 echo "Basic deps installed" &&
 
 echo "Install dotfiles repo" &&
@@ -27,10 +27,11 @@ echo "dotfiles cloned" &&
 
 echo "Installing Node (io.js latest)" &&
 curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash &&
-source $HOME/.nvm/nvm.sh &&
+. $HOME/.nvm/nvm.sh &&
 nvm install iojs &&
 nvm use iojs --defualt &&
-cd /.dotfiles &&
+cd .dotfiles &&
 npm install &&
+cd $HOME &&
 ./.dotfiles/build.ubuntu.js &&
 echo "Build complete."
