@@ -108,13 +108,13 @@ echo "Installed pip and virtualenv"
 
 echo "Installing Autoenv"
 echo "   URL: https://github.com/kennethreitz/autoenv"
-pip install autoenv
+sudo pip install autoenv
 echo "Installed Autoenv"
 
 echo "Installing theFuck"
 echo "   URL: https://github.com/nvbn/thefuck"
 sudo pip install thefuck
-ehco "Installed theFuck"
+echo "Installed theFuck"
 
 echo "Installing Ack"
 sudo apt-get install ack-grep
