@@ -16,11 +16,12 @@ echo ""
 
 cd $HOME;
 echo "Basic Deps"
+sudp apt-get update -y
 sudo apt-get install curl zsh git build-essential libssl-dev -y
 echo "Basic deps installed"
 
 echo "Setting up SSH"
-mkdir $HOME/.ssh
+[[ ! -d $HOME/.ssh ]] && mkdir $HOME/.ssh
 touch $HOME/config
 echo "Building SSH key. What is the name of your system?"
 read COMPNAME
@@ -91,6 +92,8 @@ cd vim
     --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu
 make VIMRUNTIMEDIR=/usr/share/vim/vim74
 sudo checkinstall
+cd $HOME
+rm -rf $HOME/.buildvimlua
 echo "Installed Vim with Lua support"
 
 echo "link Vundle and .vimrc"
