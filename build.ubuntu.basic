@@ -24,7 +24,7 @@ echo "Setting up SSH" &&
 if [ ! -d $HOME/.ssh ]; then mkdir $HOME/.ssh; fi &&
 touch $HOME/config &&
 echo "Building SSH key. What is the name of your system?" &&
-read COMPNAME &&
+read COMPNAME;
 ssh-keygen -t rsa -C "$COMPNAME" &&
 echo "SSH PUBLIC KEY: " &&
 cat $HOME/id_rsa.pub &&
@@ -32,7 +32,7 @@ echo "" &&
 echo "Please take this key and add it to your github SSH keys. &&
 echo " The rest of this install depends on a working SSH key. &&
 echo " When done, press enter." &&
-read READYTOGO &&
+read READYTOGO;
 
 echo "Install dotfiles repo" &&
 git clone https://github.com/therebelrobot/dotfiles $HOME/.dotfiles &&
