@@ -1,0 +1,4 @@
+if [ -f $HOME/.dotfiles/zshrc ]; then
+  source $HOME/.dotfiles/zshrc.ubuntu
+fi
+

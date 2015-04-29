@@ -28,7 +28,7 @@ echo "ohmyzsh installed"
 
 echo "link .zshrc"
 mv $HOME/.zshrc $HOME/.zshrc.ohmyzsh
-ln -s $HOME/.dotfiles/home.zshrc $HOME/.zshrc
+ln -s $HOME/.dotfiles/home.zshrc.mac $HOME/.zshrc
 echo ".zshrc installed"
 
 echo "link .gitconfig"

@@ -1,0 +1,110 @@
+ZSH=~/.oh-my-zsh
+ZSH_THEME="duellj"
+COMPLETION_WAITING_DOTS="true"
+HIST_STAMPS="yyyy-mm-dd"
+plugins=(git nvm rvm bower colorize command-not-found comman-aliases docker gem git-flow git-hubflow gitignore )
+command_not_found_handle(){ echo -e "\x0A\xE2\x96\x88\xE2\x96\x84\xE2\x96\x84\x20\xE2\x96\x88\xE2\x96\x88\xE2\x96\x88\x20\xE2\x96\x88\xE2\x96\x84\xE2\x96\x84\x20\xE2\x96\x88\xE2\x96\x84\xE2\x96\x88\xE2\x96\x84\xE2\x96\x88\x20\xE2\x96\x88\xE2\x96\x84\xE2\x96\x88\x20\xE2\x96\x80\xE2\x96\x88\xE2\x96\x80\x0A\x0A\x28\xE2\x95\xAF\xC2\xB0\xE2\x96\xA1\x20\xC2\xB0\xEF\xBC\x89\xE2\x95\xAF\xEF\xB8\xB5\x20\xE2\x94\xBB\xE2\x94\x81\xE2\x94\xBB\x0A"; }
+
+# SOURCING
+
+source $ZSH/oh-my-zsh.sh
+
+if [ -f $HOME/.nvm/nvm.sh ]; then
+  source $HOME/.nvm/nvm.sh
+  nvm use iojs
+fi
+
+if [ -f $HOME/.rvm/scripts/rvm ]; then
+  source $HOME/.rvm/scripts/rvm
+fi
+
+if [ -s /usr/local/opt/autoenv/activate.sh ]; then
+  source /usr/local/opt/autoenv/activate.sh
+fi
+
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
+if [ -f ~/.zsh_ssh ]; then
+  source ~/.zsh_ssh
+fi
+
+# EXPORTING AND PATHING
+
+export EDITOR='vim'
+export SSH_KEY_PATH="~/.ssh/id_rsa"
+
+if [ -d "$HOME/.gvm/bin" ] ; then
+  export PATH="$HOME/.gvm/bin:$PATH"
+fi
+if [ -d "$HOME/.dotfiles/bin" ] ; then
+  export PATH="$HOME/.dotfiles/bin:$PATH"
+fi
+if [ -d "$HOME/Apps" ] ; then
+  export PATH="$HOME/Apps:$PATH"
+fi
+if [ -d "$HOME/bin" ] ; then
+  export PATH="$HOME/bin:$PATH"
+fi
+
+
+# ALIASES
+
+alias reload='echo "reloading ~/.zshrc...";source ~/.zshrc'
+alias relaod='reload'
+
+# Navigation
+alias home='cd ~/'
+alias root='cd /'
+alias jump='pushd ~/.dotfiles'
+alias cd..='cd ..'
+
+# Files and File System
+alias ls='ls -aG'
+alias ll='ls -al'
+alias findSymLinks='find ./ -type l'
+
+# Misc
+alias copyhash='git rev-parse HEAD | xclip -selection clip; echo -n "copied to clipboard: "; git rev-parse HEAD;'
+alias push='git push origin $(git rev-parse --abbrev-ref HEAD)'
+alias pull='git pull'
+alias check='git checkout'
+alias rebase='git rebase'
+alias pull='git pull'
+alias sb='git sb'
+alias commit='git commit -a'
+alias killnginx='sudo /etc/init.d/nginx stop && sudo /etc/init.d/apache2 start && sudo /etc/init.d/dnsmasq restart'
+alias killapache='sudo /etc/init.d/apache2 stop && sudo /etc/init.d/nginx start && sudo /etc/init.d/dnsmasq restart'
+alias googledrive='google-drive-ocamlfuse ~/Google'
+alias fuck='$(thefuck $(fc -ln -1))'
+alias FUCK='fuck'
+
+
+# Location Aliases
+
+alias goga="cd $HOME/git/grow/grow-app"
+alias goio="cd $HOME/git/opensource/iojs-website"
+alias goaa="cd $HOME/git/mashape/analytics-app"
+alias goap="cd $HOME/git/mashape/analytics-api"
+alias goas="cd $HOME/git/mashape/analytics-server"
+alias goma="cd $HOME/git/mashape/mashape-auth"
+
+
+# FUNCTIONS
+function restart() { if [ "$@" == "server" ] ; then echo "sudo /etc/init.d/nginx restart;"; sudo /etc/init.d/nginx restart; else echo "sudo /etc/init.d/$@ restart;"; sudo /etc/init.d/"$@" restart; fi }
+ngensite(){ sudo ln -s /etc/nginx/sites-available/"$@" /etc/nginx/sites-enabled/"$@" }
+ngdissite(){ sudo unlink /etc/nginx/sites-enabled/"$@" }
+installruby()  { curl -sSL https://get.rvm.io | bash -s stable --ruby; reload; rvm --default use 2.1.2; }
+installgems() { gem install sass compass bundler; }
+installsublime() { sudo add-apt-repository ppa:webupd8team/sublime-text-3;	sudo apt-get update; sudo apt-get install sublime-text-installer; }
+installlamp() { sudo apt-get install tasksel; sudo tasksel install lamp-server; }
+installphpfpm() { sudo add-apt-repository ppa:brianmercer/php5; sudo apt-get update; sudo apt-get install nginx php5-fpm; }
+preparesshfs() { CURRENTUSER=$(whoami); sudo apt-get install sshfs; sudo modprobe fuse; sudo adduser $CURRENTUSER fuse; sudo chown root:fuse /dev/fuse; sudo chmod +x /dev/fuse; echo "SSHfs installed."; echo "You will need to logout for these changes to take effect."; }
+ngensite(){ sudo ln -s /etc/nginx/sites-available/"$@" /etc/nginx/sites-enabled/"$@" }
+ngdissite(){ sudo unlink /etc/nginx/sites-enabled/"$@" }
+installgoogledrive() { sudo add-apt-repository ppa:alessandro-strada/ppa;sudo apt-get update;sudo apt-get install google-drive-ocamlfuse;google-drive-ocamlfuse;mkdir ~/Google;google-drive-ocamlfuse ~/Google; }
+installgo() { bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer);reload;gvm install go1; }
+installpassenger() { sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7;sudo apt-get install apt-transport-https ca-certificates;echo "deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main" > tmp.passenger.src;sudo mv tmp.passenger.src /etc/apt/sources.list.d/passenger.list;rm -rf tmp.passenger.src;sudo chown root: /etc/apt/sources.list.d/passenger.list;sudo chmod 600 /etc/apt/sources.list.d/passenger.list;sudo apt-get update;sudo apt-get install nginx-extras passenger;echo "Edit /etc/nginx/nginx.conf and uncomment passenger_root and passenger_ruby, then restart nginx."; }
+createinallfolders() { for d in ./*/ ; do echo "$d $@"; touch "$d$@"; done }
+renameinallfolders() { for d in ./*/ ; do echo "$d $1 $2"; mv "$d$1" "$d$2"; done }
+deleteinallfolders() { for d in ./*/ ; do echo "$d$@"; rm -rf "$d$@"; done }
+
