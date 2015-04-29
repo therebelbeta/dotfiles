@@ -101,9 +101,6 @@ function _afterConfirmPrompt() {
 }
 
 function _afterOhMyZSH(code){
-  if (code !== 0) {
-    return console.log('runomzsh process exited with code ' + code);
-  }
   var moveOMZSHsh = spawn('mv', ['$HOME/.oh-my-zsh/oh-my-zsh.sh', '$HOME/.oh-my-zsh/oh-my-zsh.sh.original'])
   moveOMZSHsh.stdout.on('data', function _moveOMZSHsh(data) {
     console.log('' + data);
