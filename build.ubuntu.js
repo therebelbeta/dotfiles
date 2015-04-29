@@ -100,36 +100,9 @@ function _afterConfirmPrompt() {
   runomzsh.on('close', _afterOhMyZSH);
 }
 
-function _afterOhMyZSH(code) {
-  var fixPamShell = spawn('sudo', [
-    'sed', '-i', 
-    '"s/auth       required   pam_shells.so/# auth       required   pam_shells.so/g"',
-    '/etc/pam.d/chsh'])
-  fixPamShell.stdout.on('data', function _fixPamShell (data) {
-    console.log('' + data);
-  });
-  fixPamShell.stderr.on('data', function _fixPamShellError(data) {
-    console.log('fixPamShell stderr: ' + data);
-  });
-  fixPamShell.on('close', _afterPamShellFix);
-}
-
-function _afterPamShellFix(code){
+function _afterOhMyZSH(code){
   if (code !== 0) {
-    return console.log('fixPamShell process exited with code ' + code);
-  }
-  var changeShell = spawn('chsh',['-s', '$(which zsh)'])
-  changeShell.stdout.on('data', function _changeShell(data) {
-    console.log('' + data);
-  });
-  changeShell.stderr.on('data', function _changeShellError(data) {
-    console.log('changeShell stderr: ' + data);
-  });
-  changeShell.on('close', _afterChangeShell);
-}
-function _afterChangeShell(code){
-  if (code !== 0) {
-    return console.log('changeShell process exited with code ' + code);
+    return console.log('runomzsh process exited with code ' + code);
   }
   var moveOMZSHsh = spawn('mv', ['$HOME/.oh-my-zsh/oh-my-zsh.sh', '$HOME/.oh-my-zsh/oh-my-zsh.sh.original'])
   moveOMZSHsh.stdout.on('data', function _moveOMZSHsh(data) {
