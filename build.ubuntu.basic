@@ -18,7 +18,7 @@ cd $HOME &&
 echo "Basic Deps" &&
 sudo apt-get update -y &&
 sudo apt-get remove vim vim-runtime vim-tiny vim-common -y &&
-sudo apt-get install ssh-keygen curl zsh git build-essential libssl-dev libncurses5-dev python-dev libperl-dev ruby-dev liblua5.2-dev make checkinstall mercurial python-pip ack-grep -y &&
+sudo apt-get install curl zsh git build-essential libssl-dev libncurses5-dev python-dev libperl-dev ruby-dev liblua5.2-dev make checkinstall mercurial python-pip ack-grep -y &&
 echo "Basic deps installed" &&
 
 echo "Install dotfiles repo" &&
