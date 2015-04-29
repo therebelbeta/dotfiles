@@ -101,7 +101,7 @@ function _afterConfirmPrompt() {
 }
 
 function _afterOhMyZSH(code){
-  var moveOMZSHsh = spawn('mv', ['$HOME/.oh-my-zsh/oh-my-zsh.sh', '$HOME/.oh-my-zsh/oh-my-zsh.sh.original'])
+  var moveOMZSHsh = spawn('mv', [homeDir+'/.oh-my-zsh/oh-my-zsh.sh', homeDir+'/.oh-my-zsh/oh-my-zsh.sh.original'])
   moveOMZSHsh.stdout.on('data', function _moveOMZSHsh(data) {
     console.log('' + data);
   });
@@ -114,7 +114,7 @@ function _aftermoveOMZSHsh(code){
   if (code !== 0) {
     return console.log('moveOMZSHsh process exited with code ' + code);
   }
-  var moveOMZSHtheme = spawn('mv', ['$HOME/.oh-my-zsh/themes/duellj.zsh-theme', '$HOME/.oh-my-zsh/themes/duellj.zsh-theme.original'])
+  var moveOMZSHtheme = spawn('mv', [homeDir+'/.oh-my-zsh/themes/duellj.zsh-theme', homeDir+'/.oh-my-zsh/themes/duellj.zsh-theme.original'])
   moveOMZSHtheme.stdout.on('data', function _moveOMZSHtheme(data) {
     console.log('' + data);
   });
@@ -127,7 +127,7 @@ function _aftermoveOMZSHtheme(code){
   if (code !== 0) {
     return console.log('moveOMZSHtheme process exited with code ' + code);
   }
-  var linkOMZSHsh = spawn('ln', ['-s','$HOME/.dotfiles/oh-my-zsh.sh','$HOME/.oh-my-zsh/oh-my-zsh.sh'])
+  var linkOMZSHsh = spawn('ln', ['-s',homeDir+'/.dotfiles/oh-my-zsh.sh',homeDir+'/.oh-my-zsh/oh-my-zsh.sh'])
   linkOMZSHsh.stdout.on('data', function _linkOMZSHsh(data) {
     console.log('' + data);
   });
@@ -140,7 +140,7 @@ function _afterlinkOMZSHsh(code){
   if (code !== 0) {
     return console.log('linkOMZSHsh process exited with code ' + code);
   }
-  var linkOMZSHtheme = spawn('ln', ['-s','$HOME/.dotfiles/duellj.zsh-theme','$HOME/.oh-my-zsh/themes/duellj.zsh-theme'])
+  var linkOMZSHtheme = spawn('ln', ['-s',homeDir+'/.dotfiles/duellj.zsh-theme',homeDir+'/.oh-my-zsh/themes/duellj.zsh-theme'])
   linkOMZSHtheme.stdout.on('data', function _linkOMZSHtheme(data) {
     console.log('' + data);
   });
@@ -154,7 +154,7 @@ function _afterlinkOMZSHtheme(code){
   if (code !== 0) {
     return console.log('linkOMZSHtheme process exited with code ' + code);
   }
-  var moveZSHRC = spawn('mv', ['$HOME/.zshrc', '$HOME/.zshrc.oh-my-zsh'])
+  var moveZSHRC = spawn('mv', [homeDir+'/.zshrc', homeDir+'/.zshrc.oh-my-zsh'])
   moveZSHRC.stdout.on('data', function _moveZSHRC(data) {
     console.log('' + data);
   });
@@ -167,7 +167,7 @@ function _aftermoveZSHRC(code){
   if (code !== 0) {
     return console.log('moveZSHRC process exited with code ' + code);
   }
-  var linkZSHRC = spawn('ln', ['-s','$HOME/.dotfiles/zshrc.ubuntu','$HOME/.zshrc'])
+  var linkZSHRC = spawn('ln', ['-s',homeDir+'/.dotfiles/zshrc.ubuntu',homeDir+'/.zshrc'])
   linkZSHRC.stdout.on('data', function _linkZSHRC(data) {
     console.log('' + data);
   });
@@ -180,7 +180,7 @@ function _afterlinkZSHRC(code){
   if (code !== 0) {
     return console.log('linkZSHRC process exited with code ' + code);
   }
-  var linkGitconfig = spawn('ln', ['-s','$HOME/.dotfiles/gitconfig','$HOME/.gitconfig'])
+  var linkGitconfig = spawn('ln', ['-s',homeDir+'/.dotfiles/gitconfig',homeDir+'/.gitconfig'])
   linkGitconfig.stdout.on('data', function _linkGitconfig(data) {
     console.log('' + data);
   });
@@ -193,7 +193,7 @@ function _afterlinkGitconfig(code){
   if (code !== 0) {
     return console.log('linkGitconfig process exited with code ' + code);
   }
-  var linkGitignore = spawn('ln', ['-s','$HOME/.dotfiles/gitignore','$HOME/.gitignore'])
+  var linkGitignore = spawn('ln', ['-s',homeDir+'/.dotfiles/gitignore',homeDir+'/.gitignore'])
   linkGitignore.stdout.on('data', function _linkGitignore(data) {
     console.log('' + data);
   });
@@ -206,7 +206,7 @@ function _afterlinkGitignore(code){
   if (code !== 0) {
     return console.log('linkGitignore process exited with code ' + code);
   }
-  var linkEditorconfig = spawn('ln', ['-s','$HOME/.dotfiles/editorconfig','$HOME/.editorconfig'])
+  var linkEditorconfig = spawn('ln', ['-s',homeDir+'/.dotfiles/editorconfig',homeDir+'/.editorconfig'])
   linkEditorconfig.stdout.on('data', function _linkEditorconfig(data) {
     console.log('' + data);
   });
@@ -232,7 +232,7 @@ function _aftercloneVundle(code){
   if (code !== 0) {
     return console.log('cloneVundle process exited with code ' + code);
   }
-  var linkVimrc = spawn('ln', ['-s','$HOME/.dotfiles/.vimrc', '$HOME/.vimrc'])
+  var linkVimrc = spawn('ln', ['-s',homeDir+'/.dotfiles/.vimrc', homeDir+'/.vimrc'])
   linkVimrc.stdout.on('data', function _linkVimrc(data) {
     console.log('' + data);
   });
