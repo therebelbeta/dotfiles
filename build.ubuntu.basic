@@ -30,7 +30,8 @@ curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash 
 . $HOME/.nvm/nvm.sh &&
 nvm install iojs &&
 nvm use iojs --defualt &&
-cd /.dotfiles &&
+cd .dotfiles &&
 npm install &&
+cd $HOME &&
 ./.dotfiles/build.ubuntu.js &&
 echo "Build complete."
