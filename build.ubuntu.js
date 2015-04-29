@@ -219,7 +219,7 @@ function _afterlinkEditorconfig(code){
   if (code !== 0) {
     return console.log('linkEditorconfig process exited with code ' + code);
   }
-  var cloneVundle = spawn('git', ['clone', 'https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim'])
+  var cloneVundle = spawn('git', ['clone', 'https://github.com/gmarik/Vundle.vim.git',homeDir+'/.vim/bundle/Vundle.vim'])
   cloneVundle.stdout.on('data', function _cloneVundle(data) {
     console.log('' + data);
   });
