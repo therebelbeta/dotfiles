@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-cd $HOME; &&
+cd $HOME &&
 echo "basic Deps" &&
 echo "install xcode command line" &&
 xcode-select --install &&
@@ -38,7 +38,7 @@ echo "dotfiles cloned" &&
 echo "install ohmyzsh and change default shell to zsh" &&
 curl -L http://install.ohmyz.sh | sh &&
 sudo sed -i "s/auth       required   pam_shells.so/# auth       required   pam_shells.so/g" /etc/pam.d/chsh &&
-chsh -s $(which zsh); &&
+chsh -s $(which zsh) &&
 echo "ohmyzsh installed" &&
 
 echo "link .zshrc" &&
