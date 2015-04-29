@@ -43,7 +43,8 @@ inquirer.prompt([{
 function _afterInitialPrompt(answers) {
   compName = answers.comp_name
   homeDir = answers.home_dir
-
+  console.log('System name:', compName)
+  console.log('Home Folder:', homeDir)
   console.log('Setting up SSH key for ' + compName.bold)
   var location = homeDir + '/.ssh/id_rsa'
 

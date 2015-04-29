@@ -26,7 +26,7 @@ git clone https://github.com/therebelrobot/dotfiles $HOME/.dotfiles &&
 echo "dotfiles cloned" &&
 
 echo "Installing Node (io.js latest)" &&
-curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash &&
+curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash;
 . $HOME/.nvm/nvm.sh &&
 nvm install iojs &&
 nvm use iojs --defualt &&
