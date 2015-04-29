@@ -1,130 +1,130 @@
 #! /usr/bin/env bash
 
-set -e
+set -e &&
 
-echo ''
+echo '' &&
 
-echo "Welcome to the installation script of dotfiles: Ubuntu basic."
-echo "Most of this install is done headless, with the exception of"
-echo "the Vim w/Lua support install. With this and any script you run,"
-echo "make sure you are familiar with the commands being run and that"
-echo "you monitor the execution at all times."
-echo ""
-echo "This script is released under MIT Licensing. Run at your own risk."
-echo ""
-echo ""
+echo "Welcome to the installation script of dotfiles: Ubuntu basic." &&
+echo "Most of this install is done headless, with the exception of" &&
+echo "the Vim w/Lua support install. With this and any script you run," &&
+echo "make sure you are familiar with the commands being run and that" &&
+echo "you monitor the execution at all times." &&
+echo "" &&
+echo "This script is released under MIT Licensing. Run at your own risk." &&
+echo "" &&
+echo "" &&
 
-cd $HOME;
-echo "Basic Deps"
-sudo apt-get update -y
-sudo apt-get install curl zsh git build-essential libssl-dev -y
-echo "Basic deps installed"
+cd $HOME; &&
+echo "Basic Deps" &&
+sudo apt-get update -y &&
+sudo apt-get install curl zsh git build-essential libssl-dev -y &&
+echo "Basic deps installed" &&
 
-echo "Setting up SSH"
-if [ ! -d $HOME/.ssh ]; then mkdir $HOME/.ssh; fi
-touch $HOME/config
-echo "Building SSH key. What is the name of your system?"
-read COMPNAME
-ssh-keygen -t rsa -C "$COMPNAME"
-echo "SSH PUBLIC KEY: "
-cat $HOME/id_rsa.pub
-echo ""
-echo "Please take this key and add it to your github SSH keys.
-echo " The rest of this install depends on a working SSH key.
-echo " When done, press enter."
-read READYTOGO
+echo "Setting up SSH" &&
+if [ ! -d $HOME/.ssh ]; then mkdir $HOME/.ssh; fi &&
+touch $HOME/config &&
+echo "Building SSH key. What is the name of your system?" &&
+read COMPNAME &&
+ssh-keygen -t rsa -C "$COMPNAME" &&
+echo "SSH PUBLIC KEY: " &&
+cat $HOME/id_rsa.pub &&
+echo "" &&
+echo "Please take this key and add it to your github SSH keys. &&
+echo " The rest of this install depends on a working SSH key. &&
+echo " When done, press enter." &&
+read READYTOGO &&
 
-echo "Install dotfiles repo"
-git clone https://github.com/therebelrobot/dotfiles $HOME/.dotfiles
-DOTFILES_ROOT=$HOME/.dotfiles
-echo "dotfiles cloned"
+echo "Install dotfiles repo" &&
+git clone https://github.com/therebelrobot/dotfiles $HOME/.dotfiles &&
+DOTFILES_ROOT=$HOME/.dotfiles &&
+echo "dotfiles cloned" &&
 
-echo "Install ohmyzsh and change default shell to zsh"
-echo "   URL: http://ohmyz.sh/"
-curl -L http://install.ohmyz.sh | sh
-sudo sed -i "s/auth       required   pam_shells.so/# auth       required   pam_shells.so/g" /etc/pam.d/chsh
-chsh -s $(which zsh);
-mv $HOME/.oh-my-zsh/oh-my-zsh.sh $HOME/.oh-my-zsh/oh-my-zsh.sh.original
-mv $HOME/.oh-my-zsh/themes/duellj.zsh-theme $HOME/.oh-my-zsh/themes/duellj.zsh-theme.original
-ln -s $HOME/.dotfiles/oh-my-zsh.sh $HOME/.oh-my-zsh/oh-my-zsh.sh
-ln -s $HOME/.dotfiles/duellj.zsh-theme $HOME/.oh-my-zsh/themes/duellj.zsh-theme
-echo "ohmyzsh installed"
+echo "Install ohmyzsh and change default shell to zsh" &&
+echo "   URL: http://ohmyz.sh/" &&
+curl -L http://install.ohmyz.sh | sh &&
+sudo sed -i "s/auth       required   pam_shells.so/# auth       required   pam_shells.so/g" /etc/pam.d/chsh &&
+chsh -s $(which zsh); &&
+mv $HOME/.oh-my-zsh/oh-my-zsh.sh $HOME/.oh-my-zsh/oh-my-zsh.sh.original &&
+mv $HOME/.oh-my-zsh/themes/duellj.zsh-theme $HOME/.oh-my-zsh/themes/duellj.zsh-theme.original &&
+ln -s $HOME/.dotfiles/oh-my-zsh.sh $HOME/.oh-my-zsh/oh-my-zsh.sh &&
+ln -s $HOME/.dotfiles/duellj.zsh-theme $HOME/.oh-my-zsh/themes/duellj.zsh-theme &&
+echo "ohmyzsh installed" &&
 
-echo "link .zshrc"
-mv $HOME/.zshrc $HOME/.zshrc.ohmyzsh
-ln -s $HOME/.dotfiles/home.zshrc.ubuntu $HOME/.zshrc
-source $HOME/.zshrc
-echo ".zshrc installed and sourced"
+echo "link .zshrc" &&
+mv $HOME/.zshrc $HOME/.zshrc.ohmyzsh &&
+ln -s $HOME/.dotfiles/home.zshrc.ubuntu $HOME/.zshrc &&
+source $HOME/.zshrc &&
+echo ".zshrc installed and sourced" &&
 
-echo "link .gitconfig"
-ln -s $HOME/.dotfiles/.gitconfig $HOME/.gitconfig
-echo ".gitconfig installed"
+echo "link .gitconfig" &&
+ln -s $HOME/.dotfiles/.gitconfig $HOME/.gitconfig &&
+echo ".gitconfig installed" &&
 
-echo "link .gitignore"
-ln -s $HOME/.dotfiles/.gitignore $HOME/.gitignore
-echo ".gitignore installed"
+echo "link .gitignore" &&
+ln -s $HOME/.dotfiles/.gitignore $HOME/.gitignore &&
+echo ".gitignore installed" &&
 
-echo "link .editorconfig"
-ln -s $HOME/.dotfiles/.editorconfig $HOME/.editorconfig
-echo ".editorconfig installed"
+echo "link .editorconfig" &&
+ln -s $HOME/.dotfiles/.editorconfig $HOME/.editorconfig &&
+echo ".editorconfig installed" &&
 
-echo "Installing Vim with Lua support"
-echo "   URL: https://gist.github.com/therebelrobot/01126ab73c7b97b42ea6"
-mkdir $HOME/.buildvimlua
-cd $HOME/.buildvimlua
-sudo apt-get remove vim vim-runtime vim-tiny vim-common -y
-sudo apt-get install libncurses5-dev python-dev libperl-dev ruby-dev liblua5.2-dev make checkinstall mercurial -y
-sudo ln -s /usr/include/lua5.2 /usr/include/lua
-sudo ln -s /usr/lib/x86_64-linux-gnu/liblua5.2.so /usr/local/lib/liblua.so
-hg clone https://code.google.com/p/vim/
-cd vim
-./configure --prefix=/usr     \
-    --enable-luainterp=yes    \
-    --enable-perlinterp=yes   \
-    --enable-pythoninterp=yes \
-    --enable-rubyinterp=yes   \
-    --enable-cscope           \
-    --disable-netbeans        \
-    --enable-multibyte        \
-    --enable-largefile        \
-    --enable-gui=no           \
-    --with-features=huge      \
-    --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu
-make VIMRUNTIMEDIR=/usr/share/vim/vim74
-sudo checkinstall
-cd $HOME
-rm -rf $HOME/.buildvimlua
-echo "Installed Vim with Lua support"
+echo "Installing Vim with Lua support" &&
+echo "   URL: https://gist.github.com/therebelrobot/01126ab73c7b97b42ea6" &&
+mkdir $HOME/.buildvimlua &&
+cd $HOME/.buildvimlua &&
+sudo apt-get remove vim vim-runtime vim-tiny vim-common -y &&
+sudo apt-get install libncurses5-dev python-dev libperl-dev ruby-dev liblua5.2-dev make checkinstall mercurial -y &&
+sudo ln -s /usr/include/lua5.2 /usr/include/lua &&
+sudo ln -s /usr/lib/x86_64-linux-gnu/liblua5.2.so /usr/local/lib/liblua.so &&
+hg clone https://code.google.com/p/vim/ &&
+cd vim &&
+./configure --prefix=/usr     \ 
+    --enable-luainterp=yes    \ 
+    --enable-perlinterp=yes   \ 
+    --enable-pythoninterp=yes \ 
+    --enable-rubyinterp=yes   \ 
+    --enable-cscope           \ 
+    --disable-netbeans        \ 
+    --enable-multibyte        \ 
+    --enable-largefile        \ 
+    --enable-gui=no           \ 
+    --with-features=huge      \ 
+    --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu &&
+make VIMRUNTIMEDIR=/usr/share/vim/vim74 &&
+sudo checkinstall &&
+cd $HOME &&
+rm -rf $HOME/.buildvimlua &&
+echo "Installed Vim with Lua support" &&
 
-echo "link Vundle and .vimrc"
-echo "   URL: https://github.com/gmarik/Vundle.vim"
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-ln -s $HOME/.dotfiles/.vimrc $HOME/.vimrc
-echo "Vundle and .vimrc Installed"
+echo "link Vundle and .vimrc" &&
+echo "   URL: https://github.com/gmarik/Vundle.vim" &&
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim &&
+ln -s $HOME/.dotfiles/.vimrc $HOME/.vimrc &&
+echo "Vundle and .vimrc Installed" &&
 
-echo "Install pip and virtualenv"
-echo "   URL: http://www.saltycrane.com/blog/2010/02/how-install-pip-ubuntu/"
-sudo apt-get install python-pip python-dev build-essential -y
-sudo pip install --upgrade pip
-sudo pip install --upgrade virtualenv
-echo "Installed pip and virtualenv"
+echo "Install pip and virtualenv" &&
+echo "   URL: http://www.saltycrane.com/blog/2010/02/how-install-pip-ubuntu/" &&
+sudo apt-get install python-pip python-dev build-essential -y &&
+sudo pip install --upgrade pip &&
+sudo pip install --upgrade virtualenv &&
+echo "Installed pip and virtualenv" &&
 
-echo "Installing Autoenv"
-echo "   URL: https://github.com/kennethreitz/autoenv"
-sudo pip install autoenv
-echo "Installed Autoenv"
+echo "Installing Autoenv" &&
+echo "   URL: https://github.com/kennethreitz/autoenv" &&
+sudo pip install autoenv &&
+echo "Installed Autoenv" &&
 
-echo "Installing theFuck"
-echo "   URL: https://github.com/nvbn/thefuck"
-sudo pip install thefuck
-echo "Installed theFuck"
+echo "Installing theFuck" &&
+echo "   URL: https://github.com/nvbn/thefuck" &&
+sudo pip install thefuck &&
+echo "Installed theFuck" &&
 
-echo "Installing Ack"
-sudo apt-get install ack-grep
-sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
-echo "Installed Ack"
+echo "Installing Ack" &&
+sudo apt-get install ack-grep &&
+sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep &&
+echo "Installed Ack" &&
 
-echo "Thank you for installing dotfiles: Ubuntu basic."
-echo "  If you are installing the extended version, please wait."
+echo "Thank you for installing dotfiles: Ubuntu basic." &&
+echo "  If you are installing the extended version, please wait." &&
 echo "  Otherwise, have a great day!"
 

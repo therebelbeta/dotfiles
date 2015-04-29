@@ -1,35 +1,35 @@
 #! /usr/bin/env bash
 
-set -e
+set -e &&
 
-bash -c $(curl -sL https://raw.githubusercontent.com/therebelrobot/dotfiles/master/build.ubuntu.basic)
+bash -c $(curl -sL https://raw.githubusercontent.com/therebelrobot/dotfiles/master/build.ubuntu.basic) &&
 
-echo ''
+echo '' &&
 
-echo "Welcome to the installation script of dotfiles: Ubuntu extended."
-echo "This script is run headless. With this and any script you run,"
-echo "make sure you are familiar with the commands being run and that"
-echo "you monitor the execution at all times."
-echo ""
-echo "This script is released under MIT Licensing. Run at your own risk."
-echo ""
-echo ""
+echo "Welcome to the installation script of dotfiles: Ubuntu extended." &&
+echo "This script is run headless. With this and any script you run," &&
+echo "make sure you are familiar with the commands being run and that" &&
+echo "you monitor the execution at all times." &&
+echo "" &&
+echo "This script is released under MIT Licensing. Run at your own risk." &&
+echo "" &&
+echo "" &&
 
-echo "Installing Node (io.js latest) and global Node Modules"
-curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash
-source $HOME/.nvm/nvm.sh
-nvm install iojs
-nvm use iojs --defualt
-npm install -g airpaste ampersand bower browserify codeclimate-test-reporter forever gitbye goingnative grunt-cli gulp http-server httpsnippet istanbul js-beautify jshint mocha nodemon otf2ttf peerflix-server semistandard slush standard stream-adventure thinking-in-react vtop
-echo "Installed Node and Node Modules"
+echo "Installing Node (io.js latest) and global Node Modules" &&
+curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash &&
+source $HOME/.nvm/nvm.sh &&
+nvm install iojs &&
+nvm use iojs --defualt &&
+npm install -g airpaste ampersand bower browserify codeclimate-test-reporter forever gitbye goingnative grunt-cli gulp http-server httpsnippet istanbul js-beautify jshint mocha nodemon otf2ttf peerflix-server semistandard slush standard stream-adventure thinking-in-react vtop &&
+echo "Installed Node and Node Modules" &&
 
-echo "Installing Nginx"
-sudo add-apt-repository ppa:nginx/stable -y
-sudo apt-get update -y
-sudo apt-get install nginx -y
-echo "Installed Nginx"
+echo "Installing Nginx" &&
+sudo add-apt-repository ppa:nginx/stable -y &&
+sudo apt-get update -y &&
+sudo apt-get install nginx -y &&
+echo "Installed Nginx" &&
 
-echo ""
-echo ""
+echo "" &&
+echo "" &&
 echo "Thank you for installing dotfiles: Ubuntu extended"
 
