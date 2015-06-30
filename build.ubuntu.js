@@ -47,13 +47,13 @@ function _afterInitialPrompt(answers) {
   console.log('Home Folder:', homeDir)
   console.log('Setting up SSH key for ' + compName.bold)
   var location = homeDir + '/.ssh/id_rsa'
-
-  keygen({
-    location: location,
-    comment: compName,
-    password: false,
-    read: true
-  }, _afterKeyGen);
+  _afterConfirmPrompt()
+  // keygen({
+  //  location: location,
+  //  comment: compName,
+  //  password: false,
+  //  read: true
+  //}, _afterKeyGen);
 }
 
 function _afterKeyGen(err, out) {
