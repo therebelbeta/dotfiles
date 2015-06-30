@@ -1,3 +1,6 @@
 if [ -f $HOME/.dotfiles/zshrc.mac ]; then
   source $HOME/.dotfiles/zshrc.mac
 fi
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
