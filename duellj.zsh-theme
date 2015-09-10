@@ -14,9 +14,10 @@ gvm_prompt_info() {
   else
     echo '';
   fi
+
 }
 
-PROMPT=$'%{\e[0;34m%}%B┌─[%b%{\e[0m%}%{\e[1;32m%}%n%{\e[1;34m%}@%{\e[0m%}%{\e[0;36m%}%m%{\e[0;34m%}%B]%b%{\e[0m%} - %b%{\e[0;34m%}%B[%b%{\e[1;37m%}%~%{\e[0;34m%}%B]%b%{\e[0m%} - $(git_prompt_info) - %{\e[0;34m%}%B[%b%{\e[0;33m%}%!%{\e[0;34m%}%B]%b%{\e[0m%}
+PROMPT=$'%{\e[0;34m%}%B┌─%b%{\e[0;34m%}%B[%b%{\e[1;37m%}%~%{\e[0;34m%}%B]%b%{\e[0m%} - $(git-radar --zsh --fetch) - %{\e[0;34m%}%B[%b%{\e[0;33m%}%!%{\e[0;34m%}%B]%b%{\e[0m%}
 %{\e[0;34m%}%B└─%B[%{\e[1;35m%}$%{\e[0;34m%}%B]%{\e[0m%}%b '
 RPROMPT='$(gvm_prompt_info) $(nvm_prompt_info) [%*]'
 PS2=$' \e[0;34m%}%B>%{\e[0m%}%b '

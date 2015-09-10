@@ -115,3 +115,7 @@
   added = green bold
   changed = yellow bold
   untracked = red bold
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true

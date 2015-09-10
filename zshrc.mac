@@ -10,7 +10,7 @@ source $ZSH/oh-my-zsh.sh
 
 if [ -f $HOME/.nvm/nvm.sh ]; then
   source $HOME/.nvm/nvm.sh
-  nvm use iojs
+  nvm use 4
 fi
 
 if [ -f $HOME/.rvm/scripts/rvm ]; then
@@ -76,21 +76,22 @@ alias rebase='git rebase'
 alias pull='git pull'
 alias sb='git sb'
 alias commit='git commit -a'
+alias tag='git tag -a'
+alias pr='hub pull-request'
 alias googledrive='google-drive-ocamlfuse ~/Google'
 alias fuck='$(thefuck $(fc -ln -1))'
 alias FUCK='fuck'
 alias todo='leasot'
 alias todos='leasot'
-
+alias installnodemods='npm install -g mocha airpaste ampersand bower browserify cli-adventure-games codeclimate-test-reporter filepizza fly forever goingnative grunt-cli gulp http-server istanbul jshint me-api-server node-inspector nodemon npm-package-generator package-json-to-readme peerflix scaffolt semistandard slush speed-test standard standard-format ttystudio vtop watchify yo zuul package-json-to-readme remind remind-me uglifyjs'
 
 # Location Aliases
 
-alias goga="cd $HOME/git/grow/grow-app"
 alias goio="cd $HOME/git/opensource/iojs-website"
-alias goaa="cd $HOME/git/mashape/analytics-app"
-alias goap="cd $HOME/git/mashape/analytics-api"
-alias goas="cd $HOME/git/mashape/analytics-server"
-alias goma="cd $HOME/git/mashape/mashape-auth"
+alias goaa="nvm use 2 && cd $HOME/git/mashape/analytics-app"
+alias goap="nvm use 2 && cd $HOME/git/mashape/analytics-api"
+alias goas="nvm use 0.10 && cd $HOME/git/mashape/analytics-server"
+alias goma="nvm use 1 && cd $HOME/git/mashape/mashape-auth"
 
 
 # FUNCTIONS
@@ -107,3 +108,6 @@ createinallfolders() { for d in ./*/ ; do echo "$d $@"; touch "$d$@"; done }
 renameinallfolders() { for d in ./*/ ; do echo "$d $1 $2"; mv "$d$1" "$d$2"; done }
 deleteinallfolders() { for d in ./*/ ; do echo "$d$@"; rm -rf "$d$@"; done }
 
+if [ -f ~/git/other/integrated-chinese/flashcards.py ]; then
+  python ~/git/other/integrated-chinese/flashcards.py chinese;
+fi
