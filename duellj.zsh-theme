@@ -19,5 +19,5 @@ gvm_prompt_info() {
 
 PROMPT=$'%{\e[0;34m%}%B┌─%b%{\e[0;34m%}%B[%b%{\e[1;37m%}%~%{\e[0;34m%}%B]%b%{\e[0m%} - $(git-radar --zsh --fetch) - %{\e[0;34m%}%B[%b%{\e[0;33m%}%!%{\e[0;34m%}%B]%b%{\e[0m%}
 %{\e[0;34m%}%B└─%B[%{\e[1;35m%}$%{\e[0;34m%}%B]%{\e[0m%}%b '
-RPROMPT='$(gvm_prompt_info) $(nvm_prompt_info) [%*]'
+RPROMPT='$(rvm_prompt_info) $(gvm_prompt_info) $(nvm_prompt_info) [%*]'
 PS2=$' \e[0;34m%}%B>%{\e[0m%}%b '

@@ -10,7 +10,15 @@ source $ZSH/oh-my-zsh.sh
 
 if [ -f $HOME/.nvm/nvm.sh ]; then
   source $HOME/.nvm/nvm.sh
-  nvm use 4
+  nvm use 5
+fi
+
+if [ -f $HOME/.svm/svm.sh ]; then
+  source $HOME/.svm/svm.sh
+fi
+
+if [ -f $HOME/.gvm/scripts/gvm ]; then
+  source $HOME/.gvm/scripts/gvm
 fi
 
 if [ -f $HOME/.rvm/scripts/rvm ]; then
@@ -83,16 +91,18 @@ alias fuck='$(thefuck $(fc -ln -1))'
 alias FUCK='fuck'
 alias todo='leasot'
 alias todos='leasot'
-alias installnodemods='npm install -g mocha airpaste ampersand bower browserify cli-adventure-games codeclimate-test-reporter filepizza fly forever goingnative grunt-cli gulp http-server istanbul jshint me-api-server node-inspector nodemon npm-package-generator package-json-to-readme peerflix scaffolt semistandard slush speed-test standard standard-format ttystudio vtop watchify yo zuul package-json-to-readme remind remind-me uglifyjs'
+alias installnodemods='npm install -g mocha airpaste bower browserify codeclimate-test-reporter filepizza forever goingnative grunt-cli gulp http-server istanbul jshint me-api-server node-inspector nodemon npm-package-generator package-json-to-readme peerflix scaffolt semistandard slush speed-test standard standard-format ttystudio vtop watchify yo package-json-to-readme uglifyjs sequelize-cli bump-tag harasser manualfork'
 
 # Location Aliases
 
-alias goio="cd $HOME/git/opensource/iojs-website"
-alias goaa="nvm use 2 && cd $HOME/git/mashape/analytics-app"
-alias goap="nvm use 2 && cd $HOME/git/mashape/analytics-api"
-alias goas="nvm use 0.10 && cd $HOME/git/mashape/analytics-server"
-alias goma="nvm use 1 && cd $HOME/git/mashape/mashape-auth"
-
+alias gono="cd $HOME/git/node/new.node.org"
+alias gogf="nvm use 5 && cd $HOME/git/mashape/galileo-frontend"
+alias goga="nvm use 0.12 && cd $HOME/git/mashape/galileo-api"
+alias gogc="nvm use 0.12 && cd $HOME/git/mashape/galileo-collector"
+alias goma="nvm use 0.12 && cd $HOME/git/mashape/mashape-auth"
+alias gokong="cd $HOME/git/mashape/kong/ && docker-machine start dev && sleep 15 && docker start cassandra && sleep 15 && git pull && kong start -c ./kong_DEVELOPMENT.yml && tail -f nginx_tmp/logs/error.log"
+alias changelog="niji -t 3a05918e70d12b549b02e868af6741e00cd954c3"
+alias clean="git gc --prune=now && git remote prune origin"
 
 # FUNCTIONS
 
@@ -111,3 +121,8 @@ deleteinallfolders() { for d in ./*/ ; do echo "$d$@"; rm -rf "$d$@"; done }
 if [ -f ~/git/other/integrated-chinese/flashcards.py ]; then
   python ~/git/other/integrated-chinese/flashcards.py chinese;
 fi
+
+export DOCKER_TLS_VERIFY="1"
+export DOCKER_HOST="tcp://192.168.99.100:2376"
+export DOCKER_CERT_PATH="/Users/therebelrobot/.docker/machine/machines/dev"
+export DOCKER_MACHINE_NAME="dev"
