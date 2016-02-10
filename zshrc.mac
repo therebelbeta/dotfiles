@@ -8,10 +8,8 @@ plugins=(git nvm rvm bower colorize command-not-found comman-aliases docker gem 
 
 source $ZSH/oh-my-zsh.sh
 
-if [ -f $HOME/.nvm/nvm.sh ]; then
-  source $HOME/.nvm/nvm.sh
-  nvm use 5
-fi
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 
 if [ -f $HOME/.svm/svm.sh ]; then
   source $HOME/.svm/svm.sh
@@ -28,6 +26,10 @@ fi
 
 if [ -f $HOME/.dotfiles/bin/k.sh ]; then
   source $HOME/.dotfiles/bin/k.sh
+fi
+
+if [ -f $HOME/.dotfiles/bin/concurrent.lib.sh ]; then
+  source $HOME/.dotfiles/bin/concurrent.lib.sh
 fi
 
 if [ -s /usr/local/opt/autoenv/activate.sh ]; then
@@ -56,6 +58,10 @@ if [ -d "$HOME/Apps" ] ; then
 fi
 if [ -d "$HOME/bin" ] ; then
   export PATH="$HOME/bin:$PATH"
+fi
+
+if [ -d "$HOME/.lit" ] ; then
+  export PATH="$HOME/.lit:$PATH"
 fi
 
 
@@ -100,8 +106,7 @@ alias gogf="nvm use 5 && cd $HOME/git/mashape/galileo-frontend"
 alias goga="nvm use 0.12 && cd $HOME/git/mashape/galileo-api"
 alias gogc="nvm use 0.12 && cd $HOME/git/mashape/galileo-collector"
 alias goma="nvm use 0.12 && cd $HOME/git/mashape/mashape-auth"
-alias gokong="cd $HOME/git/mashape/kong/ && docker-machine start dev && sleep 15 && docker start cassandra && sleep 15 && git pull && kong start -c ./kong_DEVELOPMENT.yml && tail -f nginx_tmp/logs/error.log"
-alias changelog="niji -t 3a05918e70d12b549b02e868af6741e00cd954c3"
+alias gokong="cd $HOME/git/mashape/kong/ && docker-machine start dev && sleep 15 && docker start cassandra && sleep 15 && kong start && tail -f tail -f /usr/local/kong/logs/error.log"
 alias clean="git gc --prune=now && git remote prune origin"
 
 # FUNCTIONS

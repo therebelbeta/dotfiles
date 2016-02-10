@@ -1,8 +1,11 @@
 [user]
   name = Trent Oswald
   email = trentoswald@therebelrobot.com
+  signingkey = 82E7871F
 [github]
   user = therebelrobot
+[commit]
+  gpgsign = true
 [push]
   default = simple
 [core]

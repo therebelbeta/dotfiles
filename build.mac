@@ -65,11 +65,10 @@ ln -s $HOME/.dotfiles/.vimrc $HOME/.vimrc &&
 echo "Vundle and .vimrc Installed" &&
 
 echo "Installing Node and Node Modules" &&
-curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash &&
+curl https://raw.githubusercontent.com/creationix/nvm/v0.30.2/install.sh | bash &&
 source $HOME/.nvm/nvm.sh &&
-nvm install iojs &&
-nvm use iojs --defualt &&
-npm install -g airpaste ampersand bower browserify codeclimate-test-reporter forever gitbye goingnative grunt-cli gulp http-server httpsnippet istanbul js-beautify jshint mocha nodemon otf2ttf peerflix-server semistandard slush standard stream-adventure thinking-in-react vtop &&
+nvm install 5 &&
+nvm alias default 5 &&
 
 keybase-installer &&
 echo "Installed Node and Node Modules" &&
