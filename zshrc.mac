@@ -103,11 +103,13 @@ alias installnodemods='npm install -g mocha airpaste bower browserify codeclimat
 
 alias gono="cd $HOME/git/node/new.node.org"
 alias gogf="nvm use 5 && cd $HOME/git/mashape/galileo-frontend"
-alias goga="nvm use 0.12 && cd $HOME/git/mashape/galileo-api"
-alias gogc="nvm use 0.12 && cd $HOME/git/mashape/galileo-collector"
+alias gogc="nvm use 4 && cd $HOME/git/mashape/galileo-collector"
+alias gogag="nvm use 4 && cd $HOME/git/mashape/galileo-aggregator"
+alias goga="nvm use 4 && cd $HOME/git/mashape/galileo-api"
 alias goma="nvm use 0.12 && cd $HOME/git/mashape/mashape-auth"
 alias gokong="cd $HOME/git/mashape/kong/ && docker-machine start dev && sleep 15 && docker start cassandra && sleep 15 && kong start && tail -f tail -f /usr/local/kong/logs/error.log"
 alias clean="git gc --prune=now && git remote prune origin"
+
 
 # FUNCTIONS
 
