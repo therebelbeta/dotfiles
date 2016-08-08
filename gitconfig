@@ -10,7 +10,6 @@
   default = simple
 [core]
   editor = vim
-  pager = diff-so-fancy | less --tabs=1,5 -R
 [web]
   browser = google-chrome
 [alias]
@@ -123,9 +122,3 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
-[diff]
-	tool = delta
-[difftool]
-	prompt = false
-[difftool "delta"]
-	cmd = delta \"$LOCAL\" \"$REMOTE\" \"$MERGED\"

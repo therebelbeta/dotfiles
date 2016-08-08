@@ -43,7 +43,6 @@ Bundle 'CSSMinister'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'einars/js-beautify'
 Bundle 'mattn/emmet-vim'
-Bundle 'wakatime/vim-wakatime'
 
 call vundle#end()            " required
 filetype plugin indent on    " required

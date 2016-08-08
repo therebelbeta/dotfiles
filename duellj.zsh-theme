@@ -1,14 +1,14 @@
 # user, host, full path, and time/date
 # on two lines for easier vgrepping
 # entry in a nice long thread on the Arch Linux forums: http://bbs.archlinux.org/viewtopic.php?pid=521888#p521888
-ZSH_THEME_NVM_PROMPT_PREFIX="%B⬡%b (node-"
+ZSH_THEME_NVM_PROMPT_PREFIX="%B%b (node-"
 ZSH_THEME_NVM_PROMPT_SUFFIX=")"
-ZSH_THEME_RVM_PROMPT_PREFIX="%B◈%b ("
+ZSH_THEME_RVM_PROMPT_PREFIX="%B%b ("
 ZSH_THEME_RVM_PROMPT_SUFFIX=""
 gvm_prompt_info() {
   if which go >/dev/null; then
     GO_VERSION=$(go version | awk '{print $3}')
-    ZSH_THEME_GVM_PROMPT_PREFIX="%B⧂%b ("
+    ZSH_THEME_GVM_PROMPT_PREFIX="%B%b ("
     ZSH_THEME_GVM_PROMPT_SUFFIX=")"
     echo "$ZSH_THEME_GVM_PROMPT_PREFIX$GO_VERSION$ZSH_THEME_GVM_PROMPT_SUFFIX"
   else

@@ -42,6 +42,9 @@ if [ -f ~/.zsh_ssh ]; then
   source ~/.zsh_ssh
 fi
 
+if [ -f ~/.secrets ]; then
+  source ~/.secrets
+fi
 # EXPORTING AND PATHING
 
 export EDITOR='vim'
@@ -59,11 +62,17 @@ fi
 if [ -d "$HOME/bin" ] ; then
   export PATH="$HOME/bin:$PATH"
 fi
+if [ -d "$HOME/bin/apache-maven/bin" ] ; then
+  export PATH="$HOME/bin/apache-maven/bin:$PATH"
+fi
 
 if [ -d "$HOME/.lit" ] ; then
   export PATH="$HOME/.lit:$PATH"
 fi
 
+# ulimits
+
+ulimit -n 8192
 
 # ALIASES
 
@@ -86,6 +95,7 @@ alias copyhash='git rev-parse HEAD | xclip -selection clip; echo -n "copied to c
 alias push='git push origin $(git rev-parse --abbrev-ref HEAD)'
 alias pull='git pull'
 alias check='git checkout'
+alias new='git checkout -b'
 alias rebase='git rebase'
 alias pull='git pull'
 alias sb='git sb'
@@ -98,15 +108,18 @@ alias FUCK='fuck'
 alias todo='leasot'
 alias todos='leasot'
 alias installnodemods='npm install -g mocha airpaste bower browserify codeclimate-test-reporter filepizza forever goingnative grunt-cli gulp http-server istanbul jshint me-api-server node-inspector nodemon npm-package-generator package-json-to-readme peerflix scaffolt semistandard slush speed-test standard standard-format ttystudio vtop watchify yo package-json-to-readme uglifyjs sequelize-cli bump-tag harasser manualfork'
+alias localserver='ngrok'
+alias convert2mp3='for file in ./*.mp4; do ffmpeg -i "$file" $(echo "$file" | sed 's/\.[^\.]*$/.mp3/'); done'
+alias dockerunset='unset DOCKER_TLS_VERIFY && unset DOCKER_CERT_PATH && unset DOCKER_MACHINE_NAME && unset DOCKER_HOST'
 
 # Location Aliases
 
 alias gono="cd $HOME/git/node/new.node.org"
-alias gogf="nvm use 5 && cd $HOME/git/mashape/galileo-frontend"
-alias gogc="nvm use 4 && cd $HOME/git/mashape/galileo-collector"
-alias gogag="nvm use 4 && cd $HOME/git/mashape/galileo-aggregator"
-alias goga="nvm use 4 && cd $HOME/git/mashape/galileo-api"
-alias goma="nvm use 0.12 && cd $HOME/git/mashape/mashape-auth"
+alias gogf="nvm use 6 && cd $HOME/git/mashape/galileo-frontend"
+alias gogc="nvm use 4 && cd $HOME/git/mashape/galileo-collector && git pull && git pull && npm install"
+alias gogag="nvm use 4 && cd $HOME/git/mashape/galileo-aggregator && git pull && git pull && npm install"
+alias goga="nvm use 4 && cd $HOME/git/mashape/galileo-api && git pull && git pull && npm install"
+alias goma="nvm use 4 && cd $HOME/git/mashape/mashape-auth && git pull && git pull && npm install"
 alias gokong="cd $HOME/git/mashape/kong/ && docker-machine start dev && sleep 15 && docker start cassandra && sleep 15 && kong start && tail -f tail -f /usr/local/kong/logs/error.log"
 alias clean="git gc --prune=now && git remote prune origin"
 
@@ -125,11 +138,14 @@ createinallfolders() { for d in ./*/ ; do echo "$d $@"; touch "$d$@"; done }
 renameinallfolders() { for d in ./*/ ; do echo "$d $1 $2"; mv "$d$1" "$d$2"; done }
 deleteinallfolders() { for d in ./*/ ; do echo "$d$@"; rm -rf "$d$@"; done }
 
+splitsprite() { convert "$1" -crop "$2"x"$3"@ +repage +adjoin "$4".tile-%d.png }
+
+
 if [ -f ~/git/other/integrated-chinese/flashcards.py ]; then
   python ~/git/other/integrated-chinese/flashcards.py chinese;
 fi
 
 export DOCKER_TLS_VERIFY="1"
 export DOCKER_HOST="tcp://192.168.99.100:2376"
-export DOCKER_CERT_PATH="/Users/therebelrobot/.docker/machine/machines/dev"
-export DOCKER_MACHINE_NAME="dev"
+export DOCKER_CERT_PATH="/Users/therebelrobot/.docker/machine/machines/default"
+export DOCKER_MACHINE_NAME="default"
