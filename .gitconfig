@@ -1,0 +1,6 @@
+[user]
+	signingkey = 82E7871F
+	name = Ozzy Haven
+	email = ozzyhaven@therebelrobot.com
+[commit]
+	gpgsign = true

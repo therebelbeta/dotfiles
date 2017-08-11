@@ -348,3 +348,5 @@ endfunction
 command! -range -nargs=1 Entities call HtmlEntities(<line1>, <line2>, <args>)
 noremap <silent> <leader>k :Entities 0<CR>
 noremap <silent> <leader>j :Entities 1<CR>
+execute pathogen#infect()
+call pathogen#helptags()

@@ -2,7 +2,7 @@ ZSH=~/.oh-my-zsh
 ZSH_THEME="duellj"
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="yyyy-mm-dd"
-plugins=(git nvm rvm bower colorize command-not-found comman-aliases docker gem git-flow git-hubflow gitignore )
+plugins=(git rvm bower colorize command-not-found comman-aliases docker gem git-flow git-hubflow gitignore )
 
 # SOURCING
 
@@ -21,8 +21,18 @@ fi
 
 if [ -f $HOME/.rvm/scripts/rvm ]; then
   source $HOME/.rvm/scripts/rvm
+  export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 fi
 
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+export PATH="/usr/local/sbin:$PATH"
+
+# added by travis gem
+[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
+
+export PATH="$HOME/.yarn/bin:$PATH"
 
 if [ -f $HOME/.dotfiles/bin/k.sh ]; then
   source $HOME/.dotfiles/bin/k.sh
@@ -45,6 +55,15 @@ fi
 if [ -f ~/.secrets ]; then
   source ~/.secrets
 fi
+
+if [ -f ~/git/github.com/segmentio/dotfiles/index.sh ]; then
+  source ~/git/github.com/segmentio/dotfiles/index.sh
+fi
+
+if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
 # EXPORTING AND PATHING
 
 export EDITOR='vim'
@@ -91,7 +110,7 @@ alias ll='k -ha'
 alias findSymLinks='find ./ -type l'
 
 # Misc
-alias copyhash='git rev-parse HEAD | xclip -selection clip; echo -n "copied to clipboard: "; git rev-parse HEAD;'
+alias ,='git rev-parse HEAD | xclip -selection clip; echo -n "copied to clipboard: "; git rev-parse HEAD;'
 alias push='git push origin $(git rev-parse --abbrev-ref HEAD)'
 alias pull='git pull'
 alias check='git checkout'
@@ -105,24 +124,23 @@ alias pr='hub pull-request'
 alias googledrive='google-drive-ocamlfuse ~/Google'
 alias fuck='$(thefuck $(fc -ln -1))'
 alias FUCK='fuck'
-alias todo='leasot'
-alias todos='leasot'
 alias installnodemods='npm install -g mocha airpaste bower browserify codeclimate-test-reporter filepizza forever goingnative grunt-cli gulp http-server istanbul jshint me-api-server node-inspector nodemon npm-package-generator package-json-to-readme peerflix scaffolt semistandard slush speed-test standard standard-format ttystudio vtop watchify yo package-json-to-readme uglifyjs sequelize-cli bump-tag harasser manualfork'
 alias localserver='ngrok'
 alias convert2mp3='for file in ./*.mp4; do ffmpeg -i "$file" $(echo "$file" | sed 's/\.[^\.]*$/.mp3/'); done'
 alias dockerunset='unset DOCKER_TLS_VERIFY && unset DOCKER_CERT_PATH && unset DOCKER_MACHINE_NAME && unset DOCKER_HOST'
+alias syncfitbit='goto praveendath92/fitbit-googlefit && python3 app.py'
+
+alias freedocker='echo "danglingdocker && cleardanglingdocker"'
+alias cleardocker='echo "danglingdocker && cleardanglingdocker"'
+alias dockerspace='echo "danglingdocker && cleardanglingdocker"'
+alias danglingdocker='docker volume ls --filter dangling=true | wc -l'
+alias cleardanglingdocker='docker volume rm $(docker volume ls --filter dangling=true -q)'
+
+alias logsprod='aws-vault exec production -- cwlogs'
 
 # Location Aliases
 
-alias gono="cd $HOME/git/node/new.node.org"
-alias gogf="nvm use 6 && cd $HOME/git/mashape/galileo-frontend"
-alias gogc="nvm use 4 && cd $HOME/git/mashape/galileo-collector && git pull && git pull && npm install"
-alias gogag="nvm use 4 && cd $HOME/git/mashape/galileo-aggregator && git pull && git pull && npm install"
-alias goga="nvm use 4 && cd $HOME/git/mashape/galileo-api && git pull && git pull && npm install"
-alias goma="nvm use 4 && cd $HOME/git/mashape/mashape-auth && git pull && git pull && npm install"
-alias gokong="cd $HOME/git/mashape/kong/ && docker-machine start dev && sleep 15 && docker start cassandra && sleep 15 && kong start && tail -f tail -f /usr/local/kong/logs/error.log"
 alias clean="git gc --prune=now && git remote prune origin"
-
 
 # FUNCTIONS
 
@@ -138,14 +156,72 @@ createinallfolders() { for d in ./*/ ; do echo "$d $@"; touch "$d$@"; done }
 renameinallfolders() { for d in ./*/ ; do echo "$d $1 $2"; mv "$d$1" "$d$2"; done }
 deleteinallfolders() { for d in ./*/ ; do echo "$d$@"; rm -rf "$d$@"; done }
 
+stage() { robo stage deploy default app "$@" app-staging }
+
+sshd() { docker exec -i -t "$@" /bin/sh }
+
 splitsprite() { convert "$1" -crop "$2"x"$3"@ +repage +adjoin "$4".tile-%d.png }
 
+populateevents() { docker run --rm  -it --link app_nsqd_1:nsqd  segment/events "$@" 50 nsqd:4150 }
+populateerrors() { docker run --rm  -it --link app_nsqd_1:nsqd  segment/errors "$@" 50 nsqd:4150 }
+
+fixyarn() { git checkout origin/canary yarn.lock; yarn install; git add yarn.lock }
+
+untrack () { git update-index --assume-unchanged "$@" }
+alias listuntracked="git ls-files -v | grep --colour=none ^h | cut -c 3-"
+track() { git update-index --no-assume-unchanged "$@" }
 
 if [ -f ~/git/other/integrated-chinese/flashcards.py ]; then
   python ~/git/other/integrated-chinese/flashcards.py chinese;
 fi
 
-export DOCKER_TLS_VERIFY="1"
-export DOCKER_HOST="tcp://192.168.99.100:2376"
-export DOCKER_CERT_PATH="/Users/therebelrobot/.docker/machine/machines/default"
-export DOCKER_MACHINE_NAME="default"
+AWS_DEFAULT_REGION=us-west-2
+AWS_REGION=us-west-2
+
+export JAVA_HOME=$(/usr/libexec/java_home)
+
+
+# Setup CircleCI
+
+circleapi () {
+  curl "$1/$4?circle-token=$2" \
+    -X $3 \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d "$5"
+  echo
+}
+
+setup-circle () {
+  org=$(basename $(dirname $(pwd)))
+  repo=$(basename $(pwd))
+  circletoken="$CIRCLETOKEN"
+  base_url="https://circleci.com/api/v1.1/project/github/${org}/${repo}"
+
+  echo enabling project
+  circleapi $base_url $circletoken POST "follow"
+
+  # echo adding npm auth
+  # circleapi $base_url $circletoken POST "envvar" '{"name":"NPM_AUTH","value":""}'
+
+  # echo adding gh login
+  # circleapi $base_url $circletoken POST "envvar" '{"name":"GH_LOGIN","value":""}'
+
+  # echo adding docker
+  # circleapi $base_url $circletoken POST "envvar" '{"name":"DOCKER_EMAIL","value":""}'
+
+  # circleapi $base_url $circletoken POST "envvar" '{"name":"DOCKER_USER","value":""}'
+
+  # circleapi $base_url $circletoken POST "envvar" '{"name":"DOCKER_PASS","value":""}'
+
+  # echo adding stage secret
+  # circleapi $base_url $circletoken POST "envvar" '{"name":"STAGE_SECRET","value":""}'
+
+  # echo adding production secret
+  # circleapi $base_url $circletoken POST "envvar" '{"name":"PRODUCTION_SECRET","value":""}'
+
+  echo adding github checkout key
+  circleapi $base_url $circletoken POST "checkout-key" '{"type":"github-user-key"}'
+}
+PATH=/Users/therebelrobot/.Pokemon-Terminal:/Users/therebelrobot/bin:/Users/therebelrobot/.dotfiles/bin:/usr/local/go/bin:/Users/therebelrobot/.yarn/bin:/usr/local/sbin:/usr/local/heroku/bin:/Users/therebelrobot/.nvm/versions/node/v7.10.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Users/therebelrobot/git/bin:/Users/therebelrobot/git/github.com/segmentio/dotfiles/scripts
+ichooseyou random-kanto

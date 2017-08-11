@@ -13,7 +13,7 @@ brew update &&
 brew upgrade &&
 echo "Brew installed" &&
 
-brew install curl zsh vim --with-lua gcc python &&
+brew install curl zsh zsh-syntax-highlighting vim --with-lua gcc python &&
 sudo easy_install pip &&
 echo "basic deps installed" &&
 

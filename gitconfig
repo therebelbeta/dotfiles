@@ -1,7 +1,7 @@
 [user]
   name = Trent Oswald
   email = trentoswald@therebelrobot.com
-  signingkey = 82E7871F
+  signingkey = 4AB7E0EE
 [github]
   user = therebelrobot
 [commit]
@@ -102,6 +102,8 @@
   meldof = config --remove-section diff
   #############
   human = name-rev --name-only --refs=refs/heads/*
+	today = log --graph --all --since=midnight --author='Trent Oswald' --oneline
+	yesterday = log --graph --all --since=yesterday.midnight --until=midnight --author='Trent Oswald' --oneline
 [color]
   ui = true
 [color "branch"]

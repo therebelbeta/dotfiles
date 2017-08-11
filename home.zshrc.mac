@@ -1,17 +1,3 @@
 if [ -f $HOME/.dotfiles/zshrc.mac ]; then
   source $HOME/.dotfiles/zshrc.mac
 fi
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-[[ -s "/Users/therebelrobot/.gvm/scripts/gvm" ]] && source "/Users/therebelrobot/.gvm/scripts/gvm"
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export PATH="/usr/local/sbin:$PATH"
-
-# added by travis gem
-[ -f /Users/therebelrobot/.travis/travis.sh ] && source /Users/therebelrobot/.travis/travis.sh
-
-export NVM_DIR="/Users/therebelrobot/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
