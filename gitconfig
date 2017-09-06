@@ -1,7 +1,7 @@
 [user]
-  name = Trent Oswald
-  email = trentoswald@therebelrobot.com
-  signingkey = 4AB7E0EE
+	signingkey = 72B9A756
+	name = Ozzy Haven (Trent Oswald)
+	email = ozzyhaven@therebelrobot.com
 [github]
   user = therebelrobot
 [commit]

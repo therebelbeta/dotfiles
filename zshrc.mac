@@ -225,3 +225,9 @@ setup-circle () {
 }
 PATH=/Users/therebelrobot/.Pokemon-Terminal:/Users/therebelrobot/bin:/Users/therebelrobot/.dotfiles/bin:/usr/local/go/bin:/Users/therebelrobot/.yarn/bin:/usr/local/sbin:/usr/local/heroku/bin:/Users/therebelrobot/.nvm/versions/node/v7.10.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Users/therebelrobot/git/bin:/Users/therebelrobot/git/github.com/segmentio/dotfiles/scripts
 ichooseyou random-kanto
+
+# source scripts folder
+
+for file in $HOME/.dotfiles/scripts/*; do
+  source $file
+done
