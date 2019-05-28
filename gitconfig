@@ -1,6 +1,6 @@
 [user]
 	signingkey = 72B9A756
-	name = Ozzy Haven (Trent Oswald)
+	name = Oz Haven (Trent Oswald)
 	email = ozzyhaven@therebelrobot.com
 [github]
   user = therebelrobot
@@ -121,6 +121,7 @@
   changed = yellow bold
   untracked = red bold
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
 	required = true
+	process = git-lfs filter-process

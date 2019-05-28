@@ -33,6 +33,7 @@ export PATH="/usr/local/sbin:$PATH"
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
 export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$PATH:$(yarn global bin)"
 
 if [ -f $HOME/.dotfiles/bin/k.sh ]; then
   source $HOME/.dotfiles/bin/k.sh
@@ -56,10 +57,6 @@ if [ -f ~/.secrets ]; then
   source ~/.secrets
 fi
 
-if [ -f ~/git/github.com/segmentio/dotfiles/index.sh ]; then
-  source ~/git/github.com/segmentio/dotfiles/index.sh
-fi
-
 if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
@@ -68,6 +65,8 @@ fi
 
 export EDITOR='vim'
 export SSH_KEY_PATH="~/.ssh/id_rsa"
+export CIRCLE_BRANCH="local-testing"
+
 
 if [ -d "$HOME/.gvm/bin" ] ; then
   export PATH="$HOME/.gvm/bin:$PATH"
@@ -88,6 +87,10 @@ fi
 if [ -d "$HOME/.lit" ] ; then
   export PATH="$HOME/.lit:$PATH"
 fi
+
+export PATH="$HOME/go/bin:$PATH"
+
+export PATH="$HOME/Library/Python/3.6/bin:$PATH"
 
 # ulimits
 
@@ -110,25 +113,26 @@ alias ll='k -ha'
 alias findSymLinks='find ./ -type l'
 
 # Misc
-alias ,='git rev-parse HEAD | xclip -selection clip; echo -n "copied to clipboard: "; git rev-parse HEAD;'
+alias ,='git rev-parse HEAD | pbcopy; echo -n "copied to clipboard: "; git rev-parse HEAD;'
 alias push='git push origin $(git rev-parse --abbrev-ref HEAD)'
-alias pull='git pull'
+alias pull='git pull origin $(git rev-parse --abbrev-ref HEAD)'
 alias check='git checkout'
+alias cherry='git cherry-pick'
 alias new='git checkout -b'
 alias rebase='git rebase'
 alias pull='git pull'
 alias sb='git sb'
 alias commit='git commit -a'
 alias tag='git tag -a'
+alias clean="git gc --prune=now && git remote prune origin"
+
 alias pr='hub pull-request'
 alias googledrive='google-drive-ocamlfuse ~/Google'
 alias fuck='$(thefuck $(fc -ln -1))'
 alias FUCK='fuck'
-alias installnodemods='npm install -g mocha airpaste bower browserify codeclimate-test-reporter filepizza forever goingnative grunt-cli gulp http-server istanbul jshint me-api-server node-inspector nodemon npm-package-generator package-json-to-readme peerflix scaffolt semistandard slush speed-test standard standard-format ttystudio vtop watchify yo package-json-to-readme uglifyjs sequelize-cli bump-tag harasser manualfork'
+alias installnodemods='npm install -g mocha airpaste bower browserify codeclimate-test-reporter file,\pizza forever goingnative grunt-cli gulp http-server istanbul jshint me-api-server node-inspector nodemon npm-package-generator package-json-to-readme peerflix scaffolt semistandard slush speed-test standard standard-format ttystudio vtop watchify yo package-json-to-readme uglifyjs sequelize-cli bump-tag harasser manualfork'
 alias localserver='ngrok'
-alias convert2mp3='for file in ./*.mp4; do ffmpeg -i "$file" $(echo "$file" | sed 's/\.[^\.]*$/.mp3/'); done'
 alias dockerunset='unset DOCKER_TLS_VERIFY && unset DOCKER_CERT_PATH && unset DOCKER_MACHINE_NAME && unset DOCKER_HOST'
-alias syncfitbit='goto praveendath92/fitbit-googlefit && python3 app.py'
 
 alias freedocker='echo "danglingdocker && cleardanglingdocker"'
 alias cleardocker='echo "danglingdocker && cleardanglingdocker"'
@@ -136,98 +140,48 @@ alias dockerspace='echo "danglingdocker && cleardanglingdocker"'
 alias danglingdocker='docker volume ls --filter dangling=true | wc -l'
 alias cleardanglingdocker='docker volume rm $(docker volume ls --filter dangling=true -q)'
 
-alias logsprod='aws-vault exec production -- cwlogs'
+alias kube='kubectl'
+alias kk='kubectl'
+alias mk='minikube'
+
+alias edit='open -a "visual Studio Code"'
+alias pwnyoutube='youtube-dl-interactive'
 
 # Location Aliases
 
-alias clean="git gc --prune=now && git remote prune origin"
 
 # FUNCTIONS
 
-restart() { if [ "$@" == "server" ] ; then echo "sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.nginx.plist && sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.nginx.plist"; sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.nginx.plist && sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.nginx.plist; else echo "sudo /etc/init.d/$@ restart;"; sudo /etc/init.d/"$@" restart; fi }
-ngensite(){ sudo ln -s /etc/nginx/sites-available/"$@" /etc/nginx/sites-enabled/"$@" }
-ngdissite(){ sudo unlink /etc/nginx/sites-enabled/"$@" }
 installruby()  { curl -sSL https://get.rvm.io | bash -s stable --ruby; reload; rvm --default use 2.1.2; }
 installgems() { gem install sass compass bundler; }
-ngensite(){ sudo ln -s /etc/nginx/sites-available/"$@" /etc/nginx/sites-enabled/"$@" }
-ngdissite(){ sudo unlink /etc/nginx/sites-enabled/"$@" }
 installgo() { bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer);reload;gvm install go1; }
+
 createinallfolders() { for d in ./*/ ; do echo "$d $@"; touch "$d$@"; done }
 renameinallfolders() { for d in ./*/ ; do echo "$d $1 $2"; mv "$d$1" "$d$2"; done }
 deleteinallfolders() { for d in ./*/ ; do echo "$d$@"; rm -rf "$d$@"; done }
 
-stage() { robo stage deploy default app "$@" app-staging }
+setupglobalrepl() { npm i -g local-repl; ln -s $HOME/.dotfiles/.replrc.js $HOME/.replrc.js }
+setuprepl() { ln -s $HOME/.replrc.js $( pwd )/.replrc.js; echo .replrc.js >> .gitignore }
+alias noderequire='local-repl'
 
 sshd() { docker exec -i -t "$@" /bin/sh }
 
 splitsprite() { convert "$1" -crop "$2"x"$3"@ +repage +adjoin "$4".tile-%d.png }
 
-populateevents() { docker run --rm  -it --link app_nsqd_1:nsqd  segment/events "$@" 50 nsqd:4150 }
-populateerrors() { docker run --rm  -it --link app_nsqd_1:nsqd  segment/errors "$@" 50 nsqd:4150 }
-
-fixyarn() { git checkout origin/canary yarn.lock; yarn install; git add yarn.lock }
-
 untrack () { git update-index --assume-unchanged "$@" }
 alias listuntracked="git ls-files -v | grep --colour=none ^h | cut -c 3-"
 track() { git update-index --no-assume-unchanged "$@" }
 
-if [ -f ~/git/other/integrated-chinese/flashcards.py ]; then
-  python ~/git/other/integrated-chinese/flashcards.py chinese;
-fi
-
-AWS_DEFAULT_REGION=us-west-2
-AWS_REGION=us-west-2
-
-export JAVA_HOME=$(/usr/libexec/java_home)
-
-
-# Setup CircleCI
-
-circleapi () {
-  curl "$1/$4?circle-token=$2" \
-    -X $3 \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d "$5"
-  echo
-}
-
-setup-circle () {
-  org=$(basename $(dirname $(pwd)))
-  repo=$(basename $(pwd))
-  circletoken="$CIRCLETOKEN"
-  base_url="https://circleci.com/api/v1.1/project/github/${org}/${repo}"
-
-  echo enabling project
-  circleapi $base_url $circletoken POST "follow"
-
-  # echo adding npm auth
-  # circleapi $base_url $circletoken POST "envvar" '{"name":"NPM_AUTH","value":""}'
-
-  # echo adding gh login
-  # circleapi $base_url $circletoken POST "envvar" '{"name":"GH_LOGIN","value":""}'
-
-  # echo adding docker
-  # circleapi $base_url $circletoken POST "envvar" '{"name":"DOCKER_EMAIL","value":""}'
-
-  # circleapi $base_url $circletoken POST "envvar" '{"name":"DOCKER_USER","value":""}'
-
-  # circleapi $base_url $circletoken POST "envvar" '{"name":"DOCKER_PASS","value":""}'
-
-  # echo adding stage secret
-  # circleapi $base_url $circletoken POST "envvar" '{"name":"STAGE_SECRET","value":""}'
-
-  # echo adding production secret
-  # circleapi $base_url $circletoken POST "envvar" '{"name":"PRODUCTION_SECRET","value":""}'
-
-  echo adding github checkout key
-  circleapi $base_url $circletoken POST "checkout-key" '{"type":"github-user-key"}'
-}
-PATH=/Users/therebelrobot/.Pokemon-Terminal:/Users/therebelrobot/bin:/Users/therebelrobot/.dotfiles/bin:/usr/local/go/bin:/Users/therebelrobot/.yarn/bin:/usr/local/sbin:/usr/local/heroku/bin:/Users/therebelrobot/.nvm/versions/node/v7.10.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Users/therebelrobot/git/bin:/Users/therebelrobot/git/github.com/segmentio/dotfiles/scripts
-ichooseyou random-kanto
+installpokemonterminal() { sudo pip3 install git+https://github.com/LazoCoder/Pokemon-Terminal.git }
+PATH="/Users/therebelrobot/.Pokemon-Terminal:/Users/therebelrobot/bin:/Users/therebelrobot/.dotfiles/bin:/usr/local/go/bin:/Users/therebelrobot/.yarn/bin:/usr/local/sbin:/usr/local/heroku/bin:/Users/therebelrobot/.nvm/versions/node/v7.10.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Users/therebelrobot/git/bin:/Users/therebelrobot/git/github.com/segmentio/dotfiles/scripts:$PATH"
+pokemon -r kanto
 
 # source scripts folder
 
 for file in $HOME/.dotfiles/scripts/*; do
   source $file
 done
+
+if [ -f $HOME/.saleae/saleae.sh ]; then
+  source $HOME/.saleae/saleae.sh
+fi

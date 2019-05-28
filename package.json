@@ -17,10 +17,20 @@
   },
   "homepage": "https://github.com/therebelrobot/dotfiles#readme",
   "dependencies": {
+    "@f/get-prop": "^1.1.1",
+    "@f/set-prop": "^1.0.1",
+    "@therebel/fetchapi": "^0.0.1",
+    "@therebel/ksuid": "^1.1.2-alpha1",
+    "camel-case": "^3.0.0",
     "colors": "^1.1.0",
     "debug-log2": "^1.0.0",
+    "dotenv": "^6.2.0",
     "fs": "0.0.2",
     "inquirer": "^0.8.2",
+    "lodash": "^4.17.11",
+    "moment": "^2.23.0",
+    "numeral": "^2.0.6",
+    "popmotion": "^8.5.4",
     "ssh-keygen": "^0.2.1"
   }
 }
