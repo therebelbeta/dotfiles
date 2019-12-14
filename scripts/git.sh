@@ -10,7 +10,6 @@ alias gca="git commit -a -m"
 alias gpt="git push --tags"
 alias gp="git push"
 alias grh="git reset --hard"
-alias gb="git branch"
 alias gcob="git checkout -b"
 alias gm="git merge"
 alias gco="git checkout"
@@ -42,6 +41,20 @@ clone() {
   for repo in $@; do
     if [[ "$repo" == */* ]]; then
       local dir=$GIT_LOCATION/$repo
+      git clone ssh://git@github.com/$repo.git $dir
+      cd $dir
+    else
+      local dir=$GOTO_DEFAULT/$USER_DEFAULT/$repo
+      git clone ssh://git@github.com/$USER_DEFAULT/$repo.git $dir
+      cd $dir
+    fi
+  done
+}
+
+goclone() {
+  for repo in $@; do
+    if [[ "$repo" == */* ]]; then
+      local dir=$GO_LOCATION/$repo
       git clone ssh://git@github.com/$repo.git $dir
       cd $dir
     else

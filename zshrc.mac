@@ -2,9 +2,11 @@ ZSH=~/.oh-my-zsh
 ZSH_THEME="duellj"
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="yyyy-mm-dd"
-plugins=(git rvm bower colorize command-not-found comman-aliases docker gem git-flow git-hubflow gitignore )
+plugins=(git rvm bower colorize command-not-found docker gem git-flow git-hubflow gitignore )
 
 # SOURCING
+
+source $HOME/.zshrc.pre-oh-my-zsh
 
 source $ZSH/oh-my-zsh.sh
 
@@ -125,6 +127,7 @@ alias sb='git sb'
 alias commit='git commit -a'
 alias tag='git tag -a'
 alias clean="git gc --prune=now && git remote prune origin"
+alias start="git start"
 
 alias pr='hub pull-request'
 alias googledrive='google-drive-ocamlfuse ~/Google'
@@ -143,12 +146,12 @@ alias cleardanglingdocker='docker volume rm $(docker volume ls --filter dangling
 alias kube='kubectl'
 alias kk='kubectl'
 alias mk='minikube'
+alias cat="bat"
 
 alias edit='open -a "visual Studio Code"'
 alias pwnyoutube='youtube-dl-interactive'
 
-# Location Aliases
-
+alias testalllite='yarn lint --config .eslintrc.ci.json; yarn schema && node scripts/build.js && node scripts/buildServer.js; node scripts/test.js --env=jsdom'
 
 # FUNCTIONS
 
@@ -172,6 +175,8 @@ untrack () { git update-index --assume-unchanged "$@" }
 alias listuntracked="git ls-files -v | grep --colour=none ^h | cut -c 3-"
 track() { git update-index --no-assume-unchanged "$@" }
 
+findandkillonport () { lsof -t -i tcp:"$@" | xargs kill -9 }
+
 installpokemonterminal() { sudo pip3 install git+https://github.com/LazoCoder/Pokemon-Terminal.git }
 PATH="/Users/therebelrobot/.Pokemon-Terminal:/Users/therebelrobot/bin:/Users/therebelrobot/.dotfiles/bin:/usr/local/go/bin:/Users/therebelrobot/.yarn/bin:/usr/local/sbin:/usr/local/heroku/bin:/Users/therebelrobot/.nvm/versions/node/v7.10.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Users/therebelrobot/git/bin:/Users/therebelrobot/git/github.com/segmentio/dotfiles/scripts:$PATH"
 pokemon -r kanto
@@ -182,6 +187,3 @@ for file in $HOME/.dotfiles/scripts/*; do
   source $file
 done
 
-if [ -f $HOME/.saleae/saleae.sh ]; then
-  source $HOME/.saleae/saleae.sh
-fi

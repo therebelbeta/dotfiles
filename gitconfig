@@ -1,7 +1,9 @@
 [user]
 	signingkey = 72B9A756
-	name = Oz Haven (Trent Oswald)
-	email = ozzyhaven@therebelrobot.com
+  name = Aster Haven
+  email = ahaven@medium.com
+[credential]
+  helper = osxkeychain
 [github]
   user = therebelrobot
 [commit]
