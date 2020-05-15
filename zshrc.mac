@@ -1,5 +1,7 @@
 ZSH=~/.oh-my-zsh
-ZSH_THEME="duellj"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+alias getZshTheme="git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k"
+
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="yyyy-mm-dd"
 plugins=(git rvm bower colorize command-not-found docker gem git-flow git-hubflow gitignore )
@@ -94,6 +96,9 @@ export PATH="$HOME/go/bin:$PATH"
 
 export PATH="$HOME/Library/Python/3.6/bin:$PATH"
 
+export PATH="/usr/local/go/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:$HOME/git/bin:$PATH"
+
+
 # ulimits
 
 ulimit -n 8192
@@ -153,6 +158,12 @@ alias pwnyoutube='youtube-dl-interactive'
 
 alias testalllite='yarn lint --config .eslintrc.ci.json; yarn schema && node scripts/build.js && node scripts/buildServer.js; node scripts/test.js --env=jsdom'
 
+alias treed="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+
+alias editAliases="edit ~/.dotfiles/zshrc.mac"
+
+alias auth="echo 'kbfd --aws-okta exec lite -- echo Ready';kbfd --aws-okta exec lite -- echo Ready"
+
 # FUNCTIONS
 
 installruby()  { curl -sSL https://get.rvm.io | bash -s stable --ruby; reload; rvm --default use 2.1.2; }
@@ -178,8 +189,6 @@ track() { git update-index --no-assume-unchanged "$@" }
 findandkillonport () { lsof -t -i tcp:"$@" | xargs kill -9 }
 
 installpokemonterminal() { sudo pip3 install git+https://github.com/LazoCoder/Pokemon-Terminal.git }
-PATH="/Users/therebelrobot/.Pokemon-Terminal:/Users/therebelrobot/bin:/Users/therebelrobot/.dotfiles/bin:/usr/local/go/bin:/Users/therebelrobot/.yarn/bin:/usr/local/sbin:/usr/local/heroku/bin:/Users/therebelrobot/.nvm/versions/node/v7.10.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/Users/therebelrobot/git/bin:/Users/therebelrobot/git/github.com/segmentio/dotfiles/scripts:$PATH"
-pokemon -r kanto
 
 # source scripts folder
 
@@ -187,3 +196,4 @@ for file in $HOME/.dotfiles/scripts/*; do
   source $file
 done
 
+pokemon -r kanto

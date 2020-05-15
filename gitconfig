@@ -6,6 +6,8 @@
   helper = osxkeychain
 [github]
   user = therebelrobot
+[core]
+  pager = delta --dark
 [commit]
   gpgsign = true
 [push]
