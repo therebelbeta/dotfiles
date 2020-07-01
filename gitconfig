@@ -1,9 +1,9 @@
 [user]
 	signingkey = 72B9A756
-	name = Oz Haven (Trent Oswald)
-	email = ozzyhaven@therebelrobot.com
+	name = hackernetic
+	email = github@hackernetic.com
 [github]
-  user = therebelrobot
+	user = hackernetic
 [commit]
   gpgsign = true
 [push]
@@ -23,10 +23,10 @@
   sp = stash pop
   ss = stash save
   #############
-  d = diff
-  dc = diff --cached
-  dk = diff --check
-  dck = diff --cached --check
+  d = difftool
+  dc = difftool --cached
+  dk = difftool --check
+  dck = difftool --cached --check
   #############
   c = commit
   ca = commit -a
@@ -98,12 +98,9 @@
   #############
   w = show
   #############
-  meldon = config diff.external /home/pkumar/.meld.py
-  meldof = config --remove-section diff
-  #############
   human = name-rev --name-only --refs=refs/heads/*
-	today = log --graph --all --since=midnight --author='Trent Oswald' --oneline
-	yesterday = log --graph --all --since=yesterday.midnight --until=midnight --author='Trent Oswald' --oneline
+	today = log --graph --all --since=midnight --author='Oz Haven (Trent Oswald)' --oneline
+	yesterday = log --graph --all --since=yesterday.midnight --until=midnight --author='Oz Haven (Trent Oswald)' --oneline
 [color]
   ui = true
 [color "branch"]
@@ -125,3 +122,21 @@
 	smudge = git-lfs smudge -- %f
 	required = true
 	process = git-lfs filter-process
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+
+# If you want to set up Kaleidoscope as the default diff tool,
+# then also set the following variables:
+[difftool]
+	prompt = false
+[diff]
+	tool = Kaleidoscope
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" \"$REMOTE\"
+
+# If you want to set up Kaleidoscope as the default merge tool,
+# then also set the following variables:
+[mergetool]
+	prompt = false
+[merge]
+	tool = Kaleidoscope
