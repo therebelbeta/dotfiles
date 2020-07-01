@@ -10,6 +10,30 @@ goto() {
       nav $1
     ;;
 
+    mono)
+      cd $MONO_HOME
+    ;;
+
+    lite)
+      cd $MONO_HOME/ts/lite
+    ;;
+
+    rito)
+      cd $MONO_HOME/ts/rito
+    ;;
+
+    m2)
+      cd $MONO_HOME/medium2
+    ;;
+
+    discussion)
+      cd $MONO_HOME/go/cmd/discussion
+    ;;
+
+    rex)
+      cd $MONO_HOME/go/cmd/rex
+    ;;
+
     dotfiles)
       cd $DOTFILES_LOCATION
     ;;

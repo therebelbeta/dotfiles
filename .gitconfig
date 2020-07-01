@@ -6,14 +6,13 @@
   helper = osxkeychain
 [github]
   user = therebelrobot
-[core]
-  pager = delta --dark
 [commit]
   gpgsign = true
 [push]
   default = simple
 [core]
   editor = vim
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [web]
   browser = google-chrome
 [alias]
@@ -27,10 +26,10 @@
   sp = stash pop
   ss = stash save
   #############
-  d = difftool
-  dc = difftool --cached
-  dk = difftool --check
-  dck = difftool --cached --check
+  d = diff
+  dc = diff --cached
+  dk = diff --check
+  dck = diff --cached --check
   #############
   c = commit
   ca = commit -a
@@ -102,21 +101,25 @@
   #############
   w = show
   #############
+  meldon = config diff.external /home/pkumar/.meld.py
+  meldof = config --remove-section diff
+  #############
   human = name-rev --name-only --refs=refs/heads/*
-	today = log --graph --all --since=midnight --author='Oz Haven (Trent Oswald)' --oneline
-	yesterday = log --graph --all --since=yesterday.midnight --until=midnight --author='Oz Haven (Trent Oswald)' --oneline
+	today = log --graph --all --since=midnight --author='Trent Oswald' --oneline
+	yesterday = log --graph --all --since=yesterday.midnight --until=midnight --author='Trent Oswald' --oneline
 [color]
-  ui = true
+	ui = true
 [color "branch"]
   current = yellow bold
   local = green bold
   remote = cyan bold
 [color "diff"]
-  meta = yellow bold
-  frag = magenta bold
-  old = red bold
-  new = green bold
-  whitespace = red reverse
+	meta = 11
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+	commit = yellow bold
 [color "status"]
   added = green bold
   changed = yellow bold
@@ -126,21 +129,8 @@
 	smudge = git-lfs smudge -- %f
 	required = true
 	process = git-lfs filter-process
-[difftool "Kaleidoscope"]
-	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
-
-# If you want to set up Kaleidoscope as the default diff tool,
-# then also set the following variables:
-[difftool]
-	prompt = false
-[diff]
-	tool = Kaleidoscope
-[mergetool "Kaleidoscope"]
-	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" \"$REMOTE\"
-
-# If you want to set up Kaleidoscope as the default merge tool,
-# then also set the following variables:
-[mergetool]
-	prompt = false
-[merge]
-	tool = Kaleidoscope
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
