@@ -1,13 +1,12 @@
 [user]
 	signingkey = 72B9A756
-  name = Aster Haven
-  email = ahaven@medium.com
+	name = therebelrobot
+	email = github@therebelrobot.com
 [credential]
-  helper = osxkeychain
+	helper = 
+	username = therebelrobot
 [github]
-  user = therebelrobot
-[core]
-  pager = delta --dark
+	user = therebelrobot
 [commit]
   gpgsign = true
 [push]
