@@ -89,3 +89,14 @@ gbn() {
   )";
   echo $branch_name
 }
+
+compare() {
+  local branch_name="$(                                        \
+       git symbolic-ref --quiet --short HEAD 2> /dev/null      \
+    || git rev-parse --short HEAD 2> /dev/null                 \
+    || echo '(unknown)'                                        \
+  )";
+  echo $branch_name
+  open "https://github.com/Medium/mono/compare/master...therebelrobot/$branch_name"
+
+}

@@ -28,9 +28,6 @@ if [ -f $HOME/.rvm/scripts/rvm ]; then
   export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 fi
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
 export PATH="/usr/local/sbin:$PATH"
 
 ### For Pokemon Terminal
@@ -39,7 +36,7 @@ export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
-export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/bin:$PATH"
 export PATH="$PATH:$(yarn global bin)"
 
 if [ -f $HOME/.dotfiles/bin/k.sh ]; then
@@ -143,8 +140,6 @@ alias start="git start"
 
 alias pr='hub pull-request'
 alias googledrive='google-drive-ocamlfuse ~/Google'
-alias fuck='$(thefuck $(fc -ln -1))'
-alias FUCK='fuck'
 alias installnodemods='npm install -g mocha airpaste bower browserify codeclimate-test-reporter file,\pizza forever goingnative grunt-cli gulp http-server istanbul jshint me-api-server node-inspector nodemon npm-package-generator package-json-to-readme peerflix scaffolt semistandard slush speed-test standard standard-format ttystudio vtop watchify yo package-json-to-readme uglifyjs sequelize-cli bump-tag harasser manualfork'
 alias localserver='ngrok'
 alias dockerunset='unset DOCKER_TLS_VERIFY && unset DOCKER_CERT_PATH && unset DOCKER_MACHINE_NAME && unset DOCKER_HOST'
@@ -182,6 +177,10 @@ alias treed="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias editAliases="edit ~/.dotfiles/zshrc.mac"
 
 alias auth="echo 'kbfd --aws-okta exec lite -- echo Ready';kbfd --aws-okta exec lite -- echo Ready"
+
+alias easyfind="spot"
+alias installspot="curl -L https://raw.github.com/rauchg/spot/master/spot.sh -o ~/bin/spot && chmod +x ~/bin/spot"
+alias installeasyfind="installspot"
 
 # FUNCTIONS
 
