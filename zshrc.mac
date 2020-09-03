@@ -238,6 +238,9 @@ display () {
     displayplacer "id:532D45C0-8EEF-D102-A929-01A1BBA8C2D8 res:1920x1200 color_depth:8 scaling:on origin:(0,0) degree:0" "id:47373B16-B557-83BA-929D-7FAD38A6E73F res:2560x1440 hz:60 color_depth:8 scaling:off origin:(189,-1440) degree:0"
   ;;
 
+  synergy)
+    displayplacer "id:532D45C0-8EEF-D102-A929-01A1BBA8C2D8 res:1920x1200 color_depth:8 scaling:on origin:(0,0) degree:0" "id:47373B16-B557-83BA-929D-7FAD38A6E73F res:2560x1440 hz:60 color_depth:8 scaling:off origin:(1920,-147) degree:0"
+  ;;
 
   *)
     displayplacer $@
