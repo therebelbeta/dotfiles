@@ -1,1 +1,0 @@
-*** command 'lshal debug -E com.quicinc.cne.server@1.0::IServer/cnd' failed: exit code 128
