@@ -67,7 +67,7 @@ fi
 
 # EXPORTING AND PATHING
 
-export EDITOR='vim'
+export EDITOR='nano'
 export SSH_KEY_PATH="~/.ssh/id_rsa"
 export CIRCLE_BRANCH="local-testing"
 
@@ -155,7 +155,7 @@ alias kk='kubectl'
 alias mk='minikube'
 alias cat="bat"
 
-alias edit='open -a "visual Studio Code"'
+alias edit='open -a "Visual Studio Code"'
 alias pwnyoutube='youtube-dl-interactive'
 alias lscpu='sysctl -n hw.ncpu'
 
@@ -181,6 +181,13 @@ alias auth="echo 'kbfd --aws-okta exec lite -- echo Ready';kbfd --aws-okta exec 
 alias easyfind="spot"
 alias installspot="curl -L https://raw.github.com/rauchg/spot/master/spot.sh -o ~/bin/spot && chmod +x ~/bin/spot"
 alias installeasyfind="installspot"
+
+fixsnapshot() {
+  echo 'git checkout origin/main ts/lite/src/components/post/__snapshots__/PostNotesMarkers.test.tsx.snap';
+  git checkout origin/main ts/lite/src/components/post/__snapshots__/PostNotesMarkers.test.tsx.snap;
+  echo 'git commit -am "fixing failing snapshot"';
+  git commit -am "fixing failing snapshot";
+}
 
 # FUNCTIONS
 
@@ -218,6 +225,14 @@ git-switch () {
   git config github.user "$@"
   git config credential.username "$@"
 }
+git-setupfor () {
+  git remote remove origin
+  git remote add origin git@$@-github:
+}
+git-upstream () {
+  git branch --set-upstream-to=origin/$@ $@
+}
+
 findandkillonport () { lsof -t -i tcp:"$@" | xargs kill -9 }
 
 installpokemonterminal() { sudo pip3 install git+https://github.com/LazoCoder/Pokemon-Terminal.git }

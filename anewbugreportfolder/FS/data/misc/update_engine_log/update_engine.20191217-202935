@@ -1,0 +1,3 @@
+[1217/202935.679667:INFO:main.cc(182)] Chrome OS Update Engine starting
+[1217/202935.682028:INFO:boot_control_android.cc(64)] Loaded boot control hidl hal.
+[1224/185827.514023:INFO:main.cc(197)] Chrome OS Update Engine terminating with exit code 0

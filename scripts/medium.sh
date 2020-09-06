@@ -15,7 +15,7 @@ alias ll='exa -l'
 # # git commit --fixup (interactive)
 # gcf () {
 #   local commits selection commit
-#   commits=$(git log --pretty=format:'%h [%ad] %s' --date=relative master..HEAD) &&
+#   commits=$(git log --pretty=format:'%h [%ad] %s' --date=relative main..HEAD) &&
 #     selection=$(echo "$commits" | fzf --height=20% +m) &&
 #     commit=$(echo "$selection" | awk '{print $1}') &&
 #     if [[ -t 1 ]]; then git commit --fixup "$commit"; else echo $commit; fi
@@ -23,14 +23,14 @@ alias ll='exa -l'
 
 # git new (simplified git start)
 gn () {
-  git checkout master && git pull --rebase --no-tags && git checkout -b "$1"
+  git checkout main && git pull --rebase --no-tags && git checkout -b "$1"
 }
 
 # # git roost (simplified git sync)
 # gr () {
 #   local br
 #   br="$(git rev-parse --abbrev-ref HEAD)"
-#   git checkout master && git pull --rebase --no-tags && git checkout "$br" && git rebase master
+#   git checkout main && git pull --rebase --no-tags && git checkout "$br" && git rebase main
 # }
 
 alias g='git'
@@ -46,12 +46,12 @@ alias gcam='git commit -am'
 alias gco='git checkout'
 alias gcp='git cherry-pick'
 alias gcr='git rebase -i --autosquash'
-alias gcrm='gcr master'
+alias gcrm='gcr main'
 alias gd='git diff'
 alias gds='git diff --staged'
 alias gl="git log --pretty='format:%C(yellow)%h %C(green)%ad %Creset%s%Cblue  [%an]' --decorate --date=relative"
 alias gll='gl --stat'
-alias glm='gl master..HEAD'
+alias glm='gl main..HEAD'
 alias glu='gl @{upstream}..HEAD'
 alias gp='git pull --rebase --no-tags'
 alias gpr='git pull-request'

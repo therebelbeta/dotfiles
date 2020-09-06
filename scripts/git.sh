@@ -17,14 +17,14 @@ alias gba="git branch -a"
 alias gcp="git cherry-pick"
 alias gl="git log --pretty='format:%Cgreen%h%Creset %an - %s' --graph"
 alias docs="rm -fr /tmp/docs && cp -fr docs /tmp/docs && git checkout gh-pages && cp -fr /tmp/docs/* ."
-alias gpom="git pull origin master"
-alias gpum="git pull upstream master"
+alias gpom="git pull origin main"
+alias gpum="git pull upstream main"
 alias gcd='cd "`git rev-parse --show-toplevel`"'
 alias gdmb='git delete-merged-branches'
 alias gpr='git pull --rebase'
-alias gprm='git pull --rebase origin master'
-alias glm='git fetch; git checkout master; git pull origin master'
-alias gprune='git branch --merged | grep -v "\*" | grep -v master | xargs -n 1 git branch -d'
+alias gprm='git pull --rebase origin main'
+alias glm='git fetch; git checkout main; git pull origin main'
+alias gprune='git branch --merged | grep -v "\*" | grep -v main | xargs -n 1 git branch -d'
 
 gcopr(){
   git fetch origin pull/$1/head:pr-$1
@@ -73,7 +73,7 @@ update() {
       cd $GIT_LOCATION/$USER_DEFAULT/$repo
     fi
     nav $canonical
-    git pull origin master
+    git pull origin main
     if test "$canonical" = "therebelrobot/dotfiles"; then
       echo "... sourcing"
       source ~/.profile
@@ -97,6 +97,6 @@ compare() {
     || echo '(unknown)'                                        \
   )";
   echo $branch_name
-  open "https://github.com/Medium/mono/compare/master...therebelrobot/$branch_name"
+  open "https://github.com/Medium/mono/compare/main...therebelrobot/$branch_name"
 
 }
