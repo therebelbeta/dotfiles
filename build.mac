@@ -13,7 +13,7 @@ brew update &&
 brew upgrade &&
 echo "Brew installed" &&
 
-brew install curl zsh zsh-syntax-highlighting vim --with-lua gcc python &&
+brew install curl zsh zsh-syntax-highlighting gcc python &&
 sudo easy_install pip &&
 echo "basic deps installed" &&
 
@@ -26,8 +26,8 @@ ssh-keygen -t rsa -C "$COMPNAME" &&
 echo "SSH PUBLIC KEY: " &&
 cat $HOME/id_rsa.pub &&
 echo "" &&
-echo "Please take this key and add it to your github SSH keys. &&
-echo " The rest of this install depends on a working SSH key. &&
+echo "Please take this key and add it to your github SSH keys." &&
+echo " The rest of this install depends on a working SSH key." &&
 echo " When done, press enter." &&
 read READYTOGO &&
 
@@ -37,85 +37,46 @@ echo "dotfiles cloned" &&
 
 echo "install ohmyzsh and change default shell to zsh" &&
 curl -L http://install.ohmyz.sh | sh &&
-sudo sed -i "s/auth       required   pam_shells.so/# auth       required   pam_shells.so/g" /etc/pam.d/chsh &&
 chsh -s $(which zsh) &&
 echo "ohmyzsh installed" &&
 
+export CONFIGS=$HOME/.dotfiles/configs &&
+
 echo "link .zshrc" &&
 mv $HOME/.zshrc $HOME/.zshrc.ohmyzsh &&
-ln -s $HOME/.dotfiles/home.zshrc.mac $HOME/.zshrc &&
+ln -s $CONFIGS/home.zshrc.mac $HOME/.zshrc &&
 source $HOME/.zshrc &&
 echo ".zshrc installed" &&
 
 echo "link .gitconfig" &&
-ln -s $HOME/.dotfiles/.gitconfig $HOME/.gitconfig &&
+ln -s $CONFIGS/.gitconfig $HOME/.gitconfig &&
 echo ".gitconfig installed" &&
 
 echo "link .gitignore" &&
-ln -s $HOME/.dotfiles/.gitignore $HOME/.gitignore &&
+ln -s $CONFIGS/.gitignore $HOME/.gitignore &&
 echo ".gitignore installed" &&
 
 echo "link .editorconfig" &&
-ln -s $HOME/.dotfiles/.editorconfig $HOME/.editorconfig &&
+ln -s $CONFIGS/.editorconfig $HOME/.editorconfig &&
 echo ".editorconfig installed" &&
 
-echo "link Vundle and .vimrc" &&
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim &&
-ln -s $HOME/.dotfiles/.vimrc $HOME/.vimrc &&
-echo "Vundle and .vimrc Installed" &&
-
-echo "Installing Node and Node Modules" &&
-curl https://raw.githubusercontent.com/creationix/nvm/v0.30.2/install.sh | bash &&
+echo "Installing Node" &&
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash &&
 source $HOME/.nvm/nvm.sh &&
-nvm install 5 &&
-nvm alias default 5 &&
+nvm install latest &&
+nvm alias default latest &&
+echo "Node installed" &&
 
-keybase-installer &&
-echo "Installed Node and Node Modules" &&
-
-echo "Installing Nginx" &&
-brew install nginx &&
-sudo cp /usr/local/opt/nginx/*.plist /Library/LaunchDaemons/ &&
-sudo chown root:wheel /Library/LaunchDaemons/homebrew.mxcl.nginx.plist &&
-mkdir -p /usr/local/etc/nginx/logs &&
-mkdir -p /usr/local/etc/nginx/sites-available &&
-mkdir -p /usr/local/etc/nginx/sites-enabled &&
-mkdir -p /usr/local/etc/nginx/conf.d &&
-mkdir -p /usr/local/etc/nginx/ssl &&
-sudo mkdir -p /var/www &&
-sudo chown :staff /var/www &&
-sudo chmod 775 /var/www &&
-rm /usr/local/etc/nginx/nginx.conf &&
-ln -s $HOME/.dotfiles/nginx.conf /usr/local/etc/nginx/nginx.conf &&
-sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.nginx.plist &&
-echo "Installed Nginx" &&
-
-echo "Installing MySQL" &&
-brew install mysql &&
-ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents &&
-launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist &&
-mysql_secure_installation &&
-echo "Installed MySQL" &&
-
-echo "Installing Ack" &&
-brew install ack &&
-echo "Installed Ack" &&
-
-echo "Installing Autoenv" &&
-echo "   URL: https://github.com/kennethreitz/autoenv" &&
-sudo pip install autoenv &&
-echo "Installed Autoenv" &&
-
-echo "Installing theFuck" &&
-echo "   URL: https://github.com/nvbn/thefuck" &&
-sudo pip install thefuck &&
-echo "Installed theFuck" &&
+echo "Installing Docker" &&
+brew cask install docker
+echo "Docker installed" &&
 
 echo "building folders for projects" &&
 mkdir git git/personal git/opensource git/work git/other &&
 mkdir ISOs ISOs/OS ISOs/OS/Linux ISOs/OS/Windows ISOs/OS/Mac &&
 mkdir fonts &&
 mkdir Designs Designs/personal Designs/opensource Designs/work Designs/other &&
+mkdir Documents/personal Documents/opensource Documents/work Documents/other &&
 mkdir Videos Videos/Movies Videos/TV\ Shows &&
 
 echo "Thank you for installing Dotfiles. Have a great day!"

@@ -1,0 +1,77 @@
+#!/bin/bash
+#
+# git-dev-clone
+#
+# Script for creating a shallow clone of a repository intended for the typical
+# development flow. The local repository will only be aware of `branch` (default `main`)
+# and the user's own development branches on the origin. Tags also won't be pulled.
+#
+# Usage:
+#     git dev-clone [git-url] [local-directory] [branch]
+#     git dev-clone git@github.com:Medium/medium2.git medium2
+#     git dev-clone git@github.com:Medium/medium2.git medium2 my_branch
+#
+# To checkout someone else's branch from a repo created with `git dev-clone` you
+# will need to use git-track-branch:
+#    git track-branch nicks/lint
+#
+
+set -e
+
+# Set prog to be the full path of the script that's running, including
+# following symlinks. Set progDir to be its directory. Set progName
+# to be its simple (file) name.
+origDir="${PWD}"
+prog="$0"
+while [ -h "${prog}" ]; do
+  newProg="$(/bin/ls -ld "${prog}")"
+  newProg="$(expr "x${newProg}" : 'x.* -> \(.*\)$')"
+  if expr "x${newProg}" : 'x/' > /dev/null; then
+    prog="${newProg}"
+  else
+    progDir="$(dirname "${prog}")"
+    prog="${progDir}/${newProg}"
+  fi
+done
+progDir="$(dirname "${prog}")"
+progName="$(basename "${prog}")"
+cd "${progDir}"
+progDir="${PWD}"
+prog="${progDir}/${progName}"
+cd "${origDir}"
+origDir=
+newProg=
+
+source "${progDir}/helpers.sh"
+
+main_branch="${3:-main}"
+
+# Check for existence of auth file.
+ensure_github_auth
+username=$(get_github_username)
+
+if [[ "$1" == "" || "$2" == "" ]]; then
+  error "Missing params, Usage: git dev-clone [repo] [dir]"
+fi
+
+info "Setting up new git repository"
+m_out=$( mkdir -p "$2" )
+ensure_success $? "$ERROR_PREFIX Failed to create directory $2: $m_out"
+
+cd "$2"
+
+g_out=$( git init )
+ensure_success $? "$ERROR_PREFIX Failed to create git repo: $g_out"
+
+info "Configuring git for personal dev branches and no tags"
+
+# These commands are unlikely to fail, and set -e will catch them, so don't
+# bother wrapping with custom error handling.
+git remote add origin $1
+git config --local remote.origin.fetch +refs/heads/$main_branch:refs/remotes/origin/$main_branch
+git config --local --add remote.origin.fetch +refs/heads/$username/*:refs/remotes/origin/$username/*
+git config --local remote.origin.tagopt --no-tags
+
+git remote update
+
+success "SUCCESS!! Dev clone created in '$2'"
