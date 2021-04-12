@@ -1,3 +1,4 @@
+echo "Loading Tool: Docker"
 
 docker-cleanup() {
   docker rm -v $(docker ps -a -q -f "status=exited")

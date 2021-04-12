@@ -1,3 +1,5 @@
+echo "Loading Work: Go To"
+
 export USER_DEFAULT=medium
 
 MONO_HOME="$HOME/src/mono"

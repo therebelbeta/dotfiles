@@ -1,3 +1,5 @@
+echo "Loading Tool: Circle"
+
 setup-circle () {
   org=$(basename $(dirname $(pwd)))
   repo=$(basename $(pwd))

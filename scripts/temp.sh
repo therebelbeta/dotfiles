@@ -1,3 +1,4 @@
+echo "Loading Temp Definitions"
 
 alias opengametunnel='ngrok tls 30000 -hostname=dragonriders.thefae.run'
 

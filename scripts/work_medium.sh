@@ -1,3 +1,5 @@
+echo "Loading Work: Medium"
+
 [[ -f /opt/medium/env ]] && source /opt/medium/env
 
 alias l=exa

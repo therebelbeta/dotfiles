@@ -1,3 +1,5 @@
+echo "Loading Tool: Git"
+
 export MAIN_BRANCH='main'
 export GIT_LOCATION=$HOME/git
 

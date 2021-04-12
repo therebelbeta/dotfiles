@@ -1,3 +1,4 @@
+echo "Loading Tool: Make"
 
 alias mt="make test"
 alias mc="make clean"

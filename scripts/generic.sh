@@ -1,5 +1,6 @@
 alias reload='echo "reloading ~/.zshrc...";source ~/.zshrc'
 alias relaod='reload'
+echo "Loading Generics"
 
 alias home='cd ~/'
 alias root='cd /'

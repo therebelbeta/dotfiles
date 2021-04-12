@@ -1,3 +1,4 @@
+echo "Loading Installers"
 
 installruby () { curl -sSL https://get.rvm.io | bash -s stable --ruby; reload; rvm --default use 2.1.2; }
 installgems () { gem install sass compass bundler; }
